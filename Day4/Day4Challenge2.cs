@@ -1,4 +1,10 @@
-﻿using Utils;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Text;
+using Utils;
 
 namespace Day4
 {
@@ -10,7 +16,52 @@ namespace Day4
 
         public override int Run()
         {
-            return -1;
+            int okLines = 0;
+            foreach (var line in GetInputFilePerLine())
+            {
+                var wordsArray = line.Split(" ");
+
+                bool foundSame = false;
+
+                for (var i = 0; i < wordsArray.Length; i++)
+                {
+                    string word = wordsArray[i];
+
+                    if (wordsArray.Where((otherWord, j) => i != j).Any(otherWord => checkAnagram(word, otherWord)))
+                    {
+                        foundSame = true;
+                    }
+
+                    if (foundSame)
+                        break;
+                }
+
+                if (!foundSame)
+                    okLines++;
+            }
+            return okLines;
+        }
+
+        private static bool checkAnagram(string our, string other)
+        {
+            if (our == other)
+                return true;
+
+            if (our.Length != other.Length)
+                return false;
+
+            var ourArray = our.ToCharArray();
+            var otherArray = other.ToCharArray();
+
+            Array.Sort(ourArray);
+            Array.Sort(otherArray);
+
+            var result = new string(ourArray) == new string(otherArray);
+            if (result)
+            {
+                Console.WriteLine($"{our} is anagram of {other}");
+            }
+            return result;
         }
     }
 }
