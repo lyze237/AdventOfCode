@@ -1,4 +1,6 @@
-﻿using Utils;
+﻿using System;
+using System.Linq;
+using Utils;
 
 namespace Day5
 {
@@ -10,7 +12,21 @@ namespace Day5
 
         public override int Run()
         {
-            return -1;
+            int[] instructions = GetInputFilePerLine().Select(line => Convert.ToInt32(line)).ToArray();
+
+            int pointerIndex = 0;
+            int jumps = 0;
+
+            for (;pointerIndex >= 0 && pointerIndex < instructions.Length; jumps++)
+            {
+                int instruction = instructions[pointerIndex];
+                
+                instructions[pointerIndex]++;
+
+                pointerIndex += instruction;
+            }
+            
+            return jumps;
         }
     }
 }
