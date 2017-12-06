@@ -11,7 +11,26 @@ namespace Day2
 
         public override int Run()
         {
-            return -1;
+            int sum = 0;
+            foreach (var line in GetInputFilePerLine())
+            {
+                var inputs = line.Split('\t');
+                int min = Int32.MaxValue;
+                int max = Int32.MinValue;
+                foreach (var input in inputs)
+                {
+                    var number = Convert.ToInt32(input);
+
+                    if (number < min)
+                        min = number;
+
+                    if (number > max)
+                        max = number;
+                }
+                sum += max - min;
+            }
+
+            return sum;
         }
     }
 }
