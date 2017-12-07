@@ -5,7 +5,7 @@ using Utils;
 
 namespace Day3
 {
-    public class Day3Challenge2 : Challenge
+    public class Day3Challenge2 : Challenge<int>
     {
         enum Direction
         {

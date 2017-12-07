@@ -3,7 +3,7 @@ using System.IO;
 
 namespace Utils
 {
-    public abstract class Challenge
+    public abstract class Challenge<TR>
     {
         private readonly FileInfo challengeInput;
 
@@ -23,6 +23,6 @@ namespace Utils
             return File.ReadAllText(challengeInput.FullName);
         }
 
-        public abstract int Run();
+        public abstract TR Run();
     }
 }

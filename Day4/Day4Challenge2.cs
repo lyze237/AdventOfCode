@@ -4,7 +4,7 @@ using Utils;
 
 namespace Day4
 {
-    public class Day4Challenge2 : Challenge
+    public class Day4Challenge2 : Challenge<int>
     {
         public Day4Challenge2() : base("input")
         {
