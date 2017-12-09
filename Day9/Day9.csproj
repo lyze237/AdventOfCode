@@ -1,0 +1,11 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Utils\Utils.csproj">
+      <Project>{DBC587DD-19A1-40D8-9780-76B1188EF578}</Project>
+      <Name>Utils</Name>
+    </ProjectReference>
+  </ItemGroup>
+</Project>
