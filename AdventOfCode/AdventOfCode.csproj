@@ -4,6 +4,7 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Day10\Day10.csproj" />
     <ProjectReference Include="..\Day1\Day1.csproj" />
     <ProjectReference Include="..\Day2\Day2.csproj" />
     <ProjectReference Include="..\Day3\Day3.csproj" />
