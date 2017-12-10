@@ -8,7 +8,7 @@ namespace AdventOfCode
     {
         static void Main(string[] args)
         {
-            var challenge = new Day10Challenge1();
+            var challenge = new Day10Challenge2();
 
             Console.WriteLine($"Starting challenge {challenge.GetType().Name}");
 

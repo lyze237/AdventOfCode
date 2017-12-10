@@ -3,7 +3,9 @@
     public class WrapArray<T>
     {
         private T[] array;
-        
+
+        public T[] Array => array;
+
         public WrapArray(T[] array)
         {
             this.array = array;
