@@ -10,7 +10,7 @@ namespace AdventOfCode
     {
         static void Main(string[] args)
         {
-            var challenge = new Day12Challenge1();
+            var challenge = new Day12Challenge2();
 
             Console.WriteLine($"Starting challenge {challenge.GetType().Name}");
 
