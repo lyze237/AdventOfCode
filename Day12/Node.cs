@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 
 namespace Day12
 {
@@ -13,32 +12,50 @@ namespace Day12
             Id = id;
         }
 
-        public bool FindChild(int id)
+        #region stuff
+
+        protected bool Equals(Node other)
         {
-            return FindChild(id, new List<Node>());
+            return Id == other.Id;
         }
 
-        private bool FindChild(int id, List<Node> parents)
+        public override bool Equals(object obj)
         {
-            if (Id == id)
-                return true;
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((Node) obj);
+        }
 
-            parents.Add(this);
-            
-            foreach (var node in Path)
-            {
-                if (parents.FirstOrDefault(parent => parent.Id == node.Id) != null)
-                    return false;
-
-                return node.FindChild(id, parents);
-            }
-
-            return false;
+        public override int GetHashCode()
+        {
+            return Id;
         }
 
         public override string ToString()
         {
             return $"{nameof(Id)}: {Id}, {nameof(Path)}.Count: {Path.Count}";
+        }
+
+        #endregion
+
+        public List<Node> FindAllNeighbours()
+        {
+            var neighbours = new List<Node>();
+            FindAllNeighbours(neighbours);
+            return neighbours;
+        }
+
+        private void FindAllNeighbours(List<Node> alreadyVisited)
+        {
+            alreadyVisited.Add(this);
+            foreach (var node in Path)
+            {
+                if (alreadyVisited.Contains(node))
+                    continue;
+                
+                node.FindAllNeighbours(alreadyVisited);
+            }
         }
     }
 }

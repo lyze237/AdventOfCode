@@ -22,39 +22,24 @@ namespace Day12
             foreach (var line in GetInputFilePerLine())
             {
                 var match = regex.Match(line);
-                int nodeId = Convert.ToInt32(match.Groups[1].Value);
-                
-                nodes.Add(new Node(nodeId));
+                nodes.Add(new Node(Convert.ToInt32(match.Groups[1].Value)));
             }
             
             foreach (var line in GetInputFilePerLine())
             {
                 var match = regex.Match(line);
-                int nodeId = Convert.ToInt32(match.Groups[1].Value);
-                var nodePath = match.Groups[2].Value
+                var neighbours = match.Groups[2].Value
                     .Split(',')
-                    .Select(s => Convert.ToInt32(s.Trim()))
-                    .Select(id => nodes.First(node => node.Id == id));
+                    .Select(s => nodes
+                        .First(node => node.Id == Convert.ToInt32(s.Trim()))
+                    ).ToArray();
 
-                nodes.First(node => node.Id == nodeId).Path.AddRange(nodePath.ToArray());
+                nodes.First(node => node.Id == Convert.ToInt32(match.Groups[1].Value)).Path
+                    .AddRange(neighbours);
             }
 
-            int cnt = 0;
-            var t = new Thread(() =>
-            {
-                foreach (var node in nodes)
-                {
-                    if (node.FindChild(0))
-                        cnt++;
-                    else
-                        Console.WriteLine("Couldn't find target node 0 in node: " + node.Id);
-                }
-            }, 1024 * 1024 * 1024);
-            
-            t.Start();
-            t.Join();
-            
-            return cnt;
+            return nodes.First(node => node.Id == 0)
+                .FindAllNeighbours().Count;
         }
     }
 }
