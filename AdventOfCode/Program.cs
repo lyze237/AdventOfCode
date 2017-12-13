@@ -2,6 +2,7 @@
 using Day10;
 using Day11;
 using Day12;
+using Day13;
 using Day9;
 
 namespace AdventOfCode
@@ -10,7 +11,7 @@ namespace AdventOfCode
     {
         static void Main(string[] args)
         {
-            var challenge = new Day12Challenge2();
+            var challenge = new Day13Challenge2();
 
             Console.WriteLine($"Starting challenge {challenge.GetType().Name}");
 
