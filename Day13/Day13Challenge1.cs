@@ -24,11 +24,10 @@ namespace Day13
             for (int i = 0; i <= maxLayerCount; i++)
             {
                 var layer = layers.FirstOrDefault(l => l.Position == i);
-                if (layer?.ScannerDepth == 0)
+                if (layer?.IsCaught(i) == true)
                 {
                     caughtAmount += layer.GetSeverity();
                 }
-                layers.ForEach(l => l.MoveScanner());
             }
             
             return caughtAmount;

@@ -5,49 +5,20 @@
         public int Position { get; }
         public int Depth { get; }
 
-        private bool scannerMovesUp = false;
-        public int ScannerDepth { get; private set; } = 0;
+        private int DepthMultiply;
         
         public Layer(int position, int depth)
         {
             Position = position;
             Depth = depth;
+            DepthMultiply = (Depth - 1) * 2;
         }
 
-        public void Reset()
+        public bool IsCaught(int delay)
         {
-            ScannerDepth = 0;
-            scannerMovesUp = false;
+            return (delay % DepthMultiply) == 0;
         }
-
-        public void MoveScanner()
-        {
-            if (scannerMovesUp)
-            {
-                if (ScannerDepth <= 0)
-                {
-                    scannerMovesUp = false;
-                    ScannerDepth++;
-                }
-                else
-                {
-                    ScannerDepth--;
-                }
-            }
-            else
-            {
-                if (ScannerDepth >= Depth - 1)
-                {
-                    scannerMovesUp = true;
-                    ScannerDepth--;
-                }
-                else
-                {
-                    ScannerDepth++;
-                }
-            }
-        }
-
+        
         public int GetSeverity()
         {
             return Depth * Position;
@@ -75,7 +46,7 @@
 
         public override string ToString()
         {
-            return $"{nameof(Position)}: {Position}, {nameof(Depth)}: {Depth}, {nameof(ScannerDepth)}: {ScannerDepth}";
+            return $"{nameof(Position)}: {Position}, {nameof(Depth)}: {Depth}";
         }
         
         #endregion

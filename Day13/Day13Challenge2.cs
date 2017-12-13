@@ -22,25 +22,19 @@ namespace Day13
 
             do
             {
-                caught = false;
-                layers.ForEach(l => l.Reset());                
+                caught = false;          
 
                 int maxLayerCount = layers.Max(l => l.Position);
-                for (int i = 0; i < delay; i++)
-                {
-                    layers.ForEach(l => l.MoveScanner());
-                }
                 
                 for (int i = 0; i <= maxLayerCount; i++)
                 {
                     var layer = layers.FirstOrDefault(l => l.Position == i);
-                    if (layer?.ScannerDepth == 0)
+                    if (layer?.IsCaught(delay + i) == true)
                     {
                         caught = true;
                         delay++;
                         break;
                     }
-                    layers.ForEach(l => l.MoveScanner());
                 }
             } while (caught);
             
