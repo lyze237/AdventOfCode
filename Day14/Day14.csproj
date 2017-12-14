@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="..\Day10\Day10.csproj">
+      <Project>{4BFFA931-FEAC-41BB-97A9-E9EEC9060A2F}</Project>
+      <Name>Day10</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utils\Utils.csproj" />
+  </ItemGroup>
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+</Project>
