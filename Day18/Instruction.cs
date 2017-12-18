@@ -5,50 +5,50 @@ namespace Day18
 {
     public class Instruction
     {
-        private static Dictionary<string, int> registers = new Dictionary<string, int>();
+        private static Dictionary<string, long> registers = new Dictionary<string, long>();
         
         public string Command { get; }
-        public string Register { get; }
-        private string value;
+        private string leftRegisterName;
+        private string right;
 
-        public int Value
+        public long RightValue
         {
             get
             {
-                if (string.IsNullOrEmpty(value))
+                if (string.IsNullOrEmpty(right))
                     throw new ArgumentException("Value is not set");
                 try
                 {
-                    return Convert.ToInt32(value);
+                    return Convert.ToInt64(right);
                 }
                 catch (FormatException)
                 {
-                    return registers[value];
+                    return registers[right];
                 }
             }
         }
 
-        public int RegisterValue
+        public long LeftValue
         {
-            get => registers[Register];
-            set => registers[Register] = value;
+            get => registers[leftRegisterName];
+            set => registers[leftRegisterName] = value;
         }
         
         public Instruction(string[] strings)
         {
             Command = strings[0];
-            Register = strings[1];
+            leftRegisterName = strings[1];
             
-            if (!registers.ContainsKey(Register))
-                registers.Add(Register, 0);
+            if (!registers.ContainsKey(leftRegisterName))
+                registers.Add(leftRegisterName, 0);
             
             if (strings.Length > 2)
-                value = strings[2];    
+                right = strings[2];    
         }
 
         public override string ToString()
         {
-            return $"{nameof(Command)}: {Command}, {nameof(Register)}: {Register}, {nameof(value)}: {value}";
+            return $"{nameof(Command)}: {Command}, {nameof(leftRegisterName)}: {leftRegisterName}, {nameof(right)}: {right}";
         }
     }
 }

@@ -5,15 +5,15 @@ using Utils;
 
 namespace Day18
 {
-    public class Day18Challenge1 : Challenge<int>
+    public class Day18Challenge1 : Challenge<long>
     {
         public Day18Challenge1() : base("input")
         {
         }
 
-        public override int Run()
+        public override long Run()
         {
-            int frequency = 0;
+            long frequency = 0;
 
             List<Instruction> instructions = new List<Instruction>();
 
@@ -23,35 +23,36 @@ namespace Day18
                 instructions.Add(new Instruction(strings));
             }
             
-            for (var i = 0;; i++)
+            for (int i = 0;; i++)
             {
                 Instruction instruction = instructions[i];
                 
                 switch (instruction.Command)
                 {
                     case "snd":
-                        frequency = instruction.RegisterValue;
+                        frequency = instruction.LeftValue;
+                        Console.WriteLine($"Playing {frequency}");
                         break;
                     case "set":
-                        instruction.RegisterValue = instruction.Value;
+                        instruction.LeftValue = instruction.RightValue;
                         break;
                     case "add":
-                        instruction.RegisterValue += instruction.Value;
+                        instruction.LeftValue += instruction.RightValue;
                         break;
                     case "mul":
-                        instruction.RegisterValue *= instruction.Value;
+                        instruction.LeftValue *= instruction.RightValue;
                         break;
                     case "mod":
-                        instruction.RegisterValue %= instruction.Value;
+                        instruction.LeftValue %= instruction.RightValue;
                         break;
                     case "rcv":
-                        if (instruction.RegisterValue != 0)
+                        if (instruction.LeftValue != 0)
                             return frequency;
                         break;
                     case "jgz":
-                        if (instruction.RegisterValue > 0)
+                        if (instruction.LeftValue > 0)
                         {
-                            i += instruction.Value - 1;
+                            i += (int) instruction.RightValue - 1;
 
                             if (i < 0 || i >= instructions.Count)
                                 return -1;
