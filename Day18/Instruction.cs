@@ -5,11 +5,13 @@ namespace Day18
 {
     public class Instruction
     {
-        private static Dictionary<string, long> registers = new Dictionary<string, long>();
+        private static Dictionary<int, Dictionary<string, long>> registers = new Dictionary<int, Dictionary<string, long>>();
         
         public string Command { get; }
-        private string leftRegisterName;
+        private string left;
         private string right;
+
+        private int programId;
 
         public long RightValue
         {
@@ -23,24 +25,42 @@ namespace Day18
                 }
                 catch (FormatException)
                 {
-                    return registers[right];
+                    return registers[programId][right];
                 }
             }
         }
 
         public long LeftValue
         {
-            get => registers[leftRegisterName];
-            set => registers[leftRegisterName] = value;
+            get
+            {
+                if (string.IsNullOrEmpty(left))
+                    throw new ArgumentException("Value is not set");
+                try
+                {
+                    return Convert.ToInt64(left);
+                }
+                catch (FormatException)
+                {
+                    return registers[programId][left];
+                }
+            }
+            set => registers[programId][left] = value;
         }
-        
-        public Instruction(string[] strings)
+
+        public Instruction(string[] strings, int programId = 0)
         {
+            this.programId = programId;
             Command = strings[0];
-            leftRegisterName = strings[1];
+            left = strings[1];
+
+            if (!registers.ContainsKey(programId))
+                registers.Add(programId, new Dictionary<string, long>());
             
-            if (!registers.ContainsKey(leftRegisterName))
-                registers.Add(leftRegisterName, 0);
+            if (!registers[programId].ContainsKey(left))
+            {
+                registers[programId].Add(left, left == "p" ? programId : 0);   
+            }
             
             if (strings.Length > 2)
                 right = strings[2];    
@@ -48,7 +68,7 @@ namespace Day18
 
         public override string ToString()
         {
-            return $"{nameof(Command)}: {Command}, {nameof(leftRegisterName)}: {leftRegisterName}, {nameof(right)}: {right}";
+            return $"{nameof(Command)}: {Command}, {nameof(programId)}: {programId}, {nameof(left)}: {left}, {nameof(right)}: {right}";
         }
     }
 }
