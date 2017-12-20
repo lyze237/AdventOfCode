@@ -28,8 +28,31 @@ namespace Day20
                 
                 particles.Add(new Particle(position, velocity, acceleration));
             }
+
+            for (int i = 0; i < 100; i++)
+            {
+                particles.ForEach(particle => particle.Tick());
+
+                particles = RemoveCollissions(particles).ToList();
+            }
             
             return particles.Count;
+        }
+
+        private static IEnumerable<Particle> RemoveCollissions(List<Particle> particles)
+        {
+            while (particles.Any())
+            {
+                var particle = particles.First();
+                var collisions = particles.Where(p => p.Position == particle.Position).ToList();
+
+                if (collisions.Count == 1)
+                {
+                    yield return particle;
+                }
+
+                collisions.ForEach(c => particles.Remove(c));
+            }
         }
     }
 }

@@ -48,5 +48,15 @@
         {
             return new Vector3(first.X + second.X, first.Y + second.Y, first.Z + second.Z);            
         }
+        
+        public static bool operator ==(Vector3 first, Vector3 second)
+        {
+            return first.X == second.X && first.Y == second.Y && first.Z == second.Z;
+        }
+        
+        public static bool operator !=(Vector3 first, Vector3 second)
+        {
+            return first.X != second.X || first.Y != second.Y || first.Z != second.Z;
+        }
     }
 }
