@@ -13,30 +13,22 @@ namespace Day23
         {
             long h = 0;
 
-            long b = 99 * 100 + 100000;
+            long b = Convert.ToInt32(GetInputFilePerLine()[0].Replace("set b ", ""));
+            b = b * 100 + 100000;
             long c = b + 17000;
             
-            while (true)
+            for (; b != c; b += 17)
             {
-                bool f = false;
-                
                 for (int d = 2; d < b; d++)
                 {
                     if (b % d == 0)
                     {
-                        f = true;
+                        h++;
                         break;
                     }
                 }
-
-                if (f)
-                    h++;
-
-                if (b == c)
-                    return h;
-
-                b += 17;
             }
+            return h + 1;
         }
     }
 }
