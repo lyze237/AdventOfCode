@@ -1,9 +1,4 @@
-using System.Linq;
 using System;
-using System.Collections.Generic;
-using System.Dynamic;
-using System.Net.NetworkInformation;
-using Day18;
 using Utils;
 
 namespace Day23
@@ -20,24 +15,19 @@ namespace Day23
 
             long b = 99 * 100 + 100000;
             long c = b + 17000;
+            
             while (true)
             {
                 bool f = false;
-                long d = 2;
-
-                do
+                
+                for (int d = 2; d < b; d++)
                 {
-                    long e = 2;
-                    do
+                    if (b % d == 0)
                     {
-                        if (d * e == b)
-                            f = true;
-
-                        e++;
-                    } while (e != b);
-
-                    d++;
-                } while (d != b);
+                        f = true;
+                        break;
+                    }
+                }
 
                 if (f)
                     h++;
