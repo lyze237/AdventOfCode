@@ -5,7 +5,7 @@ namespace Day18
 {
     public class Instruction
     {
-        private static Dictionary<int, Dictionary<string, long>> registers = new Dictionary<int, Dictionary<string, long>>();
+        public static Dictionary<int, Dictionary<string, long>> Registers = new Dictionary<int, Dictionary<string, long>>();
         
         public string Command { get; }
         private string left;
@@ -25,7 +25,7 @@ namespace Day18
                 }
                 catch (FormatException)
                 {
-                    return registers[programId][right];
+                    return Registers[programId][right];
                 }
             }
         }
@@ -42,10 +42,10 @@ namespace Day18
                 }
                 catch (FormatException)
                 {
-                    return registers[programId][left];
+                    return Registers[programId][left];
                 }
             }
-            set => registers[programId][left] = value;
+            set => Registers[programId][left] = value;
         }
 
         public Instruction(string[] strings, int programId = 0)
@@ -54,8 +54,8 @@ namespace Day18
             Command = strings[0];
             left = strings[1];
 
-            if (!registers.ContainsKey(programId))
-                registers.Add(programId, new Dictionary<string, long>());
+            if (!Registers.ContainsKey(programId))
+                Registers.Add(programId, new Dictionary<string, long>());
 
             try
             {
@@ -63,9 +63,9 @@ namespace Day18
             }
             catch (FormatException)
             {
-                if (!registers[programId].ContainsKey(left))
+                if (!Registers[programId].ContainsKey(left))
                 {
-                    registers[programId].Add(left, left == "p" ? programId : 0);
+                    Registers[programId].Add(left, left == "a" ? programId : 0);
                 }
             }
 
