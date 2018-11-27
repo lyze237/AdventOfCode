@@ -1,30 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Reflection.Metadata.Ecma335;
-using System.Text;
 
-namespace AdventOfCode.drawers
+namespace AdventOfCodeLibrary.drawers
 {
     public class TimeLeftBar : Drawer
     {
-        private ProgressBar progressBar;
-        private Spinner spinner;
+        private readonly ProgressBar progressBar;
+        private readonly Spinner spinner;
 
-        public int Width { get; set; }
         public long Time { get; set; }
 
         public ConsoleColor Text { get; set; }
 
         private DateTime? startedAt;
 
-        public TimeLeftBar(int x, int y, int width, long time = -1, ConsoleColor text = ConsoleColor.White, ConsoleColor foreground = ConsoleColor.Cyan, ConsoleColor background = ConsoleColor.Black) : base(x, y, foreground, background)
+        public TimeLeftBar(int x, int y, int width, long time = -1) : base(x, y, width)
         {
-            Width = width;
-            Text = text;
+            Text = ConsoleColor.White;
             Time = time;
 
-            progressBar = new ProgressBar(x, y, width, foreground, background) { MaxValue = time };
-            spinner = new Spinner(x, y, width, foreground, background);
+            progressBar = new ProgressBar(x, y, width) { MaxValue = time };
+            spinner = new Spinner(x, y, width);
         }
 
 
@@ -33,7 +28,7 @@ namespace AdventOfCode.drawers
             var text = DrawBar();
 
             Console.ForegroundColor = Text;
-            Console.SetCursorPosition((int) (X + Width / 2 - text.Length / 2), Y);
+            Console.SetCursorPosition(X + Width / 2 - text.Length / 2, Y);
             Console.Write(text);
         }
 
@@ -48,6 +43,12 @@ namespace AdventOfCode.drawers
             var now = DateTime.Now;
             var timeSpan = now - startedAt.Value;
 
+            if (Time == -1)
+            {
+                spinner.Draw();
+                return timeSpan.ToString("G");
+            }
+
             if (timeSpan.TotalMilliseconds > Time)
             {
                 spinner.Draw();
@@ -61,10 +62,28 @@ namespace AdventOfCode.drawers
 
         public override void Tick()
         {
+            if (DoneTick)
+            {
+                Foreground = Errored ? ConsoleColor.Red : ConsoleColor.Green;
+
+                Dirty = true;
+            }
+
+            UpdateDrawerColors(spinner);
+            UpdateDrawerColors(progressBar);
+
             spinner.Tick();
             progressBar.Tick();
 
             Dirty = spinner.Dirty || progressBar.Dirty;
+        }
+
+        private void UpdateDrawerColors(Drawer drawer)
+        {
+            if (drawer.Foreground != Foreground)
+                drawer.Foreground = Foreground;
+            if (drawer.Background != Background)
+                drawer.Background = Background;
         }
 
         public void Start()

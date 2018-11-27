@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace AdventOfCodeLibrary
+﻿namespace AdventOfCodeLibrary
 {
     public enum DayType
     {

@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace AdventOfCode
+namespace AdventOfCodeLibrary.drawers
 {
     public class DrawerManager
     {
@@ -28,7 +26,7 @@ namespace AdventOfCode
         {
             while (true)
             {
-                foreach (var drawer in drawers)
+                foreach (var drawer in drawers.Where(d => !d.Done || d.DoneTick))
                     drawer.Tick();
 
                 foreach (var drawer in drawers.Where(d => d.Dirty))

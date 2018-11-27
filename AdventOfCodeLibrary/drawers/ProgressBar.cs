@@ -1,12 +1,11 @@
 ﻿using System;
 
-namespace AdventOfCode.drawers
+namespace AdventOfCodeLibrary.drawers
 {
     public class ProgressBar : Drawer
     {
         #region Fields
 
-        private int width;
         private long minValue;
         private long value;
         private long maxValue;
@@ -45,28 +44,17 @@ namespace AdventOfCode.drawers
             }
         }
 
-        public int Width
-        {
-            get => width;
-            set
-            {
-                width = value;
-                Dirty = true;
-            }
-        }
-
         #endregion
 
         #region Constructors
 
-        public ProgressBar(int x, int y, int width, ConsoleColor foreground = ConsoleColor.Cyan, ConsoleColor background = ConsoleColor.Black) : this (x, y, width, 0, 0, 100, foreground, background)
+        public ProgressBar(int x, int y, int width) : this (x, y, width, 0, 0, 100)
         {
             
         }
 
-        public ProgressBar(int x, int y, int width, long value, long minValue, long maxValue, ConsoleColor foreground = ConsoleColor.Cyan, ConsoleColor background = ConsoleColor.Black) : base(x, y, foreground, background)
+        public ProgressBar(int x, int y, int width, long value, long minValue, long maxValue) : base(x, y, width)
         {
-            Width = width;
             MinValue = minValue;
             Value = value;
             MaxValue = maxValue;
@@ -91,6 +79,11 @@ namespace AdventOfCode.drawers
 
         public override void Tick()
         {
+            if (DoneTick)
+            {
+                Foreground = Value != MaxValue || Errored ? ConsoleColor.Red : ConsoleColor.Green;
+                Dirty = true;
+            }
         }
     }
 }

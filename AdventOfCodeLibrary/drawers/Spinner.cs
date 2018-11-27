@@ -1,41 +1,24 @@
 ﻿using System;
 
-namespace AdventOfCode.drawers
+namespace AdventOfCodeLibrary.drawers
 {
     public class Spinner : Drawer
     {
         #region Fields
 
         private int value;
-        private int width;
 
         private bool right;
 
         private int tickCount = 0;
         public int UpdatesAfterTicks = 1;
 
-
-        #endregion
-
-        #region Properties
-
-        public int Width
-        {
-            get => width;
-            set
-            {
-                width = value;
-                Dirty = true;
-            }
-        }
-
         #endregion
 
         #region Constructors
 
-        public Spinner(int x, int y, int width, ConsoleColor foreground = ConsoleColor.Cyan, ConsoleColor background = ConsoleColor.Black) : base(x, y, foreground, background)
+        public Spinner(int x, int y, int width) : base(x, y, width)
         {
-            Width = width;
         }
 
         #endregion
@@ -56,6 +39,9 @@ namespace AdventOfCode.drawers
 
         public override void Tick()
         {
+            if (DoneTick)
+                Foreground = Errored ? ConsoleColor.Red : ConsoleColor.Green;
+
             if (++tickCount < UpdatesAfterTicks)
                 return;
 

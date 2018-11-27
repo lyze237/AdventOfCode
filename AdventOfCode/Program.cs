@@ -1,6 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using AdventOfCode.drawers;
+using AdventOfCodeLibrary;
+using AdventOfCodeLibrary.drawers;
 
 namespace AdventOfCode
 {
@@ -8,79 +14,16 @@ namespace AdventOfCode
     {
         public static void Main(string[] args)
         {
-            int width = Console.WindowWidth;
-            int height = Console.WindowHeight;
+            var days = DayFinder.Find();
+            var dayStarter = new DayStarter(days);
+            dayStarter.Start(0);
 
-            DrawerManager manager = new DrawerManager();
-
-            var progressBar = new ProgressBar(1, 1, 100) {MinValue = 0, Value = 50, MaxValue = 100};
-            manager.Add(progressBar);
-
-            var spinner = new Spinner(3, 3, 10) {UpdatesAfterTicks = 2};
-            manager.Add(spinner);
-
-            var percentProgressBar = new PercentProgressBar(5, 5, 100) {MinValue = 0, Value = 50, MaxValue = 100};
-            manager.Add(percentProgressBar);
-
-            var timePB = new TimeLeftBar(10, 10, 100, 20 * 1000);
-            Task.Run(async () =>
-            {
-                await Task.Delay(4000);
-                timePB.Start();
-            });
-            manager.Add(timePB);
-
-            manager.Start();
-
-            bool right = true;
-            Task.Run(async () =>
-            {
-                while (true)
-                {
-                    if (right)
-                    {
-                        if (++percentProgressBar.Value > percentProgressBar.MaxValue) { 
-                            percentProgressBar.Value = percentProgressBar.MaxValue;
-                            right = false;
-                        }
-                    }
-                    else
-                    {
-                        if (--percentProgressBar.Value < percentProgressBar.MinValue)
-                        {
-                            percentProgressBar.Value = percentProgressBar.MinValue;
-                            right = true;
-                        }
-                    }
-
-                    await Task.Delay(5);
-                }
-            });
-
-            Task.Run(async () =>
-            {
-                while (true)
-                {
-                    if (right)
-                    {
-                        if (++progressBar.Value > progressBar.MaxValue) { 
-                            progressBar.Value = progressBar.MaxValue;
-                            right = false;
-                        }
-                    }
-                    else
-                    {
-                        if (--progressBar.Value < progressBar.MinValue)
-                        {
-                            progressBar.Value = progressBar.MinValue;
-                            right = true;
-                        }
-                    }
-
-                    await Task.Delay(5);
-                }
-            });
             Console.ReadKey();
+        }
+
+        private void StartDay()
+        {
+
         }
     }
 }
