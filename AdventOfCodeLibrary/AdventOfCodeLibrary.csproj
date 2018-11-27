@@ -4,10 +4,12 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Reference Include="owl.sh.owlutils">
-      <HintPath>C:\Users\wml\.nuget\packages\owl.sh.owlutils\1.0.71\lib\netstandard2.0\owl.sh.owlutils.dll</HintPath>
-    </Reference>
+      <ItemGroup>
+    <PackageReference Include="owl.sh.owlutils" Version="1.0.71" />
+    <PackageReference Include="Serilog" Version="2.7.1" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="3.1.1" />
+    <PackageReference Include="Serilog.Sinks.RollingFile" Version="3.3.0" />
   </ItemGroup>
+
 
 </Project>

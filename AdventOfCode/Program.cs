@@ -32,7 +32,7 @@ namespace AdventOfCode
     {
         public static void Main(string[] args)
         {
-            Console.ReadKey();
+            Console.Clear();
 
             var days = DayFinder.Find();
             var dayStarter = new DayStarter(days);
