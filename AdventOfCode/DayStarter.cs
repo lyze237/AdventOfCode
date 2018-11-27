@@ -38,18 +38,24 @@ namespace AdventOfCode
                 {
                     var str = $"#    Day {day.DayNumber}    #";
 
-                    Console.WriteLine();
-                    Console.WriteLine();
-                    Console.WriteLine(new string(' ', width / 2 - str.Length / 2) + new string('#', str.Length));
-                    Console.WriteLine(new string(' ', width / 2 - str.Length / 2) + str);
-                    Console.WriteLine(new string(' ', width / 2 - str.Length / 2) + new string('#', str.Length));
-                    Console.WriteLine();
+                    if (day.DayNumber != 0)
+                    {
+                        LockConsole.WriteLine();
+                        LockConsole.WriteLine();
+                    }
+                    LockConsole.WriteLine(new string(' ', width / 2 - str.Length / 2) + new string('#', str.Length));
+                    LockConsole.WriteLine(new string(' ', width / 2 - str.Length / 2) + str);
+                    LockConsole.WriteLine(new string(' ', width / 2 - str.Length / 2) + new string('#', str.Length));
+                    LockConsole.WriteLine();
 
-                    y += 7;
+                    if (day.DayNumber == 0)
+                        y += 5;
+                    else
+                        y += 7;
                 }
 
                 var sectionStr = $"Section {day.Section}: "; 
-                Console.WriteLine(sectionStr);
+                LockConsole.WriteLine(sectionStr);
 
                 switch (day.Type)
                 {

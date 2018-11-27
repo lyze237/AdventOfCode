@@ -35,13 +35,11 @@ namespace AdventOfCodeLibrary
             }
             catch (Exception e)
             {
-                Console.SetCursorPosition(Drawer.X + Drawer.Width + 2, Drawer.Y);
-                Console.ForegroundColor = ConsoleColor.Red;
                 var msg = e.Message.Replace("\r", "").Replace("\n", " ");
                 var stackTrace = new StackTrace(e, true);
                 var frame = stackTrace.GetFrame(0);
-                Console.Write($"{frame.GetFileLineNumber()}/{frame.GetFileColumnNumber()} {msg}");
-                Console.ResetColor();
+                LockConsole.WriteInAt($"{frame.GetFileLineNumber()}/{frame.GetFileColumnNumber()} {msg}", Drawer.X + Drawer.Width + 2, Drawer.Y, ConsoleColor.Red, ConsoleColor.Black);
+                LockConsole.ResetColor();
                 Drawer.Errored = true;
             }
 

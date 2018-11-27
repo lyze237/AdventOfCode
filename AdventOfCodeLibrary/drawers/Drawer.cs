@@ -43,12 +43,15 @@ namespace AdventOfCodeLibrary.drawers
             Dirty = false;
             DoneTick = false;
 
-            Console.ForegroundColor = Foreground;
-            Console.BackgroundColor = Background;
+            lock (LockConsole.GetLock())
+            {
+                Console.ForegroundColor = Foreground;
+                Console.BackgroundColor = Background;
 
-            Console.SetCursorPosition(X, Y);
+                Console.SetCursorPosition(X, Y);
 
-            DrawInternal();
+                DrawInternal();
+            }
         }
 
         protected abstract void DrawInternal();

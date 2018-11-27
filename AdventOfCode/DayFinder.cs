@@ -23,7 +23,7 @@ namespace AdventOfCode
                 {
                     if (!(Activator.CreateInstance(type) is Day day))
                     {
-                        Console.WriteLine($"Couldn't instantiate {type.FullName}");
+                        LockConsole.WriteLineAt($"Couldn't instantiate {type.FullName}", 0, 0);
                         continue;
                     }
 
