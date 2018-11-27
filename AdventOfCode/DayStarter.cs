@@ -31,7 +31,7 @@ namespace AdventOfCode
             if (whichDays.Length > 0)
                 ourDays.RemoveAll(day => !whichDays.Contains(day.DayNumber));
 
-            for (int index = 0, y = 0; index < days.Count; index++, y++)
+            for (int index = 0, y = 1; index < days.Count; index++, y++)
             {
                 var day = days[index];
 
@@ -43,6 +43,8 @@ namespace AdventOfCode
                     {
                         LockConsole.WriteLine();
                         LockConsole.WriteLine();
+                        LockConsole.WriteLine();
+                        LockConsole.WriteLine();
                     }
                     LockConsole.WriteLine(new string(' ', width / 2 - str.Length / 2) + new string('#', str.Length));
                     LockConsole.WriteLine(new string(' ', width / 2 - str.Length / 2) + str);
@@ -50,9 +52,9 @@ namespace AdventOfCode
                     LockConsole.WriteLine();
 
                     if (day.DayNumber == 0)
-                        y += 5;
+                        y += 4;
                     else
-                        y += 7;
+                        y += 8;
                 }
 
                 var sectionStr = $"Section {day.Section}: "; 

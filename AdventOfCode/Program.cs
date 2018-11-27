@@ -14,9 +14,11 @@ namespace AdventOfCode
     {
         public static void Main(string[] args)
         {
+            Console.ReadKey();
+
             var days = DayFinder.Find();
             var dayStarter = new DayStarter(days);
-            dayStarter.Start(0);
+            dayStarter.Start();
 
             Console.ReadKey();
         }
