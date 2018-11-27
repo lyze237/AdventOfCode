@@ -4,10 +4,26 @@ namespace AdventOfCode.drawers
 {
     public class ProgressBar : Drawer
     {
+        #region Fields
+
         private int width;
         private int minValue;
         private int value;
-        public int MaxValue { get; set; }
+        private int maxValue;
+
+        #endregion
+
+        #region Properties
+
+        public int MaxValue
+        {
+            get => maxValue;
+            set
+            {
+                maxValue = value;
+                Dirty = true;
+            }
+        }
 
         public int Value
         {
@@ -39,6 +55,10 @@ namespace AdventOfCode.drawers
             }
         }
 
+        #endregion
+
+        #region Constructors
+
         public ProgressBar(int x, int y, int width, ConsoleColor foreground = ConsoleColor.Cyan, ConsoleColor background = ConsoleColor.Black) : this (x, y, width, 0, 0, 100, foreground, background)
         {
             
@@ -51,6 +71,8 @@ namespace AdventOfCode.drawers
             Value = value;
             MaxValue = maxValue;
         }
+
+        #endregion
 
         protected override void DrawInternal()
         {

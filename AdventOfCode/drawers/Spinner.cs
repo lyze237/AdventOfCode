@@ -4,9 +4,21 @@ namespace AdventOfCode.drawers
 {
     public class Spinner : Drawer
     {
+        #region Fields
+
         private int value;
-        private bool right;
         private int width;
+
+        private bool right;
+
+        private int tickCount = 0;
+        public int UpdatesAfterTicks = 1;
+
+
+        #endregion
+
+
+        #region Properties
 
         public int Width
         {
@@ -18,13 +30,16 @@ namespace AdventOfCode.drawers
             }
         }
 
-        private int tickCount = 0;
-        public int UpdatesAfterTicks = 1;
+        #endregion
+
+        #region Constructors
 
         public Spinner(int x, int y, int width, ConsoleColor foreground = ConsoleColor.Cyan, ConsoleColor background = ConsoleColor.Black) : base(x, y, foreground, background)
         {
             Width = width;
         }
+
+        #endregion
 
         protected override void DrawInternal()
         {
