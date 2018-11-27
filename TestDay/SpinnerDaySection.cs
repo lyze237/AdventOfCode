@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Threading;
 using AdventOfCodeLibrary;
+using AdventOfCodeLibrary.days;
 
 namespace TestDay
 {
-    public class SpinnerDaySection : Day
+    public class SpinnerDaySection : SpinnerDay
     {
-        public SpinnerDaySection() : base(0, 1, DayType.Spinner)
+        public SpinnerDaySection() : base(0, 1)
         {
 
         }

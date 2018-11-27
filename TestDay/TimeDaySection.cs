@@ -1,11 +1,11 @@
 ﻿using System.Threading;
-using AdventOfCodeLibrary;
+using AdventOfCodeLibrary.days;
 
 namespace TestDay
 {
-    public class TimeDaySection : Day
+    public class TimeDaySection : TimeDay
     {
-        public TimeDaySection() : base(0, 2, DayType.Time)
+        public TimeDaySection() : base(0, 2)
         {
 
         }

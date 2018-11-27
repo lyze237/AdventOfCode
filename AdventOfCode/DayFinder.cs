@@ -5,6 +5,8 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using AdventOfCodeLibrary;
+using AdventOfCodeLibrary.days;
+using owl.sh.owlutils.extensions;
 
 namespace AdventOfCode
 {
@@ -19,7 +21,7 @@ namespace AdventOfCode
             {
                 var assembly = Assembly.LoadFile(dll.FullName);
 
-                foreach (var type in assembly.GetTypes().Where(type => type.BaseType == typeof(Day)))
+                foreach (var type in assembly.GetTypes().Where(type => type.BaseType.In(typeof(ProgressDay), typeof(SpinnerDay), typeof(TimeDay))))
                 {
                     if (!(Activator.CreateInstance(type) is Day day))
                     {

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AdventOfCodeLibrary;
+using AdventOfCodeLibrary.days;
 using AdventOfCodeLibrary.drawers;
 
 namespace AdventOfCode
@@ -57,20 +58,7 @@ namespace AdventOfCode
                 var sectionStr = $"Section {day.Section}: "; 
                 LockConsole.WriteLine(sectionStr);
 
-                switch (day.Type)
-                {
-                    case DayType.Progress:
-                        day.Drawer = new PercentProgressBar(sectionStr.Length + 2, y, width - sectionStr.Length);
-                        break;
-                    case DayType.Time:
-                        day.Drawer = new TimeLeftBar(sectionStr.Length + 2, y, width - sectionStr.Length);
-                        break;
-                    case DayType.Spinner:
-                        day.Drawer = new Spinner(sectionStr.Length + 2, y, width - sectionStr.Length);
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
+                day.SetupDrawer(sectionStr.Length + 2, y, width - sectionStr.Length);
 
                 drawerManager.Add(day.Drawer);
 
@@ -79,6 +67,7 @@ namespace AdventOfCode
 
             drawerManager.Start();
         }
+
 
         private void StartDay(Day day)
         {

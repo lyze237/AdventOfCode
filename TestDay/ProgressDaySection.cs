@@ -1,23 +1,22 @@
 ﻿using System.Threading;
 using AdventOfCodeLibrary;
+using AdventOfCodeLibrary.days;
 using AdventOfCodeLibrary.drawers;
 
 namespace TestDay
 {
-    public class ProgressDaySection : Day
+    public class ProgressDaySection : ProgressDay
     {
         private PercentProgressBar bar;
-        public ProgressDaySection() : base(0, 0, DayType.Progress)
+        public ProgressDaySection() : base(0, 0)
         {
         }
 
         protected override void RunInternal(string input)
         {
-            bar = Drawer as PercentProgressBar;
-
             for (int i = 0; i <= 100; i++)
             {
-                bar.Value = i;
+                Update(i);
                 Thread.Sleep(100);
             }
         }
