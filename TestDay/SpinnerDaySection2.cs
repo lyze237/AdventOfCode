@@ -1,6 +1,4 @@
-﻿using System;
-using System.Threading;
-using AdventOfCodeLibrary;
+﻿using System.Threading;
 using AdventOfCodeLibrary.days;
 
 namespace TestDay
