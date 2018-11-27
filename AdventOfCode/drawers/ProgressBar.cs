@@ -72,12 +72,13 @@ namespace AdventOfCode.drawers
             MaxValue = maxValue;
         }
 
+
         #endregion
 
         protected override void DrawInternal()
         {
             var newWidth = Width - 2;
-            var newValue = (((Value - MinValue) * (newWidth - 0)) / (MaxValue - MinValue)) + 0;
+            var newValue = (Value - MinValue) * newWidth / (MaxValue - MinValue);
 
             Console.Write('[');
             if (newValue - 1 > 0)

@@ -17,7 +17,6 @@ namespace AdventOfCode.drawers
 
         #endregion
 
-
         #region Properties
 
         public int Width
