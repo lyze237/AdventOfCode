@@ -4,4 +4,10 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Reference Include="owl.sh.owlutils">
+      <HintPath>C:\Users\wml\.nuget\packages\owl.sh.owlutils\1.0.71\lib\netstandard2.0\owl.sh.owlutils.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

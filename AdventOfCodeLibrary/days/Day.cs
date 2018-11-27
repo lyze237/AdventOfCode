@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using AdventOfCodeLibrary.drawers;
+using owl.sh.owlutils.extensions;
 
 namespace AdventOfCodeLibrary.days
 {
@@ -14,16 +15,24 @@ namespace AdventOfCodeLibrary.days
         public string Input => input ?? (input = File.Exists($"inputs/day{DayNumber}.{Section}.txt") ? File.ReadAllText($"inputs/day{DayNumber}.{Section}.txt") : null);
 
         public Drawer Drawer { get; set; }
+
+        protected FileInfo timeFile;
         
         public Day(int dayNumber, int section)
         {
             DayNumber = dayNumber;
             Section = section;
+
+            var dir = new DirectoryInfo("times");
+            if (!dir.Exists)
+                dir.Create();
+            timeFile = dir.GetFileInDirectory($"{dayNumber}.{section}.txt");
         }
         public abstract void SetupDrawer(int x, int y, int width);
 
         public void Run(string input)
         {
+            var now = DateTime.Now;
             try
             {
                 if (Drawer is TimeLeftBar bar)
@@ -40,6 +49,9 @@ namespace AdventOfCodeLibrary.days
                 LockConsole.WriteInAt($"{frame.GetFileLineNumber()}/{frame.GetFileColumnNumber()} {msg}", Drawer.X + Drawer.Width + 2, Drawer.Y, ConsoleColor.Red, ConsoleColor.Black);
                 Drawer.Errored = true;
             }
+            var timeSpan = DateTime.Now - now;
+                  
+            File.WriteAllText(timeFile.FullName, "" + (long) timeSpan.TotalMilliseconds);
 
             LockConsole.ResetColor();
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using AdventOfCodeLibrary.drawers;
+using owl.sh.owlutils.extensions;
 
 namespace AdventOfCodeLibrary.days
 {
@@ -13,7 +14,11 @@ namespace AdventOfCodeLibrary.days
 
         public override void SetupDrawer(int x, int y, int width)
         {
-            Drawer = new TimeLeftBar(x, y, width);
+            var time = -1l;
+            if (timeFile.Exists)
+                time = Convert.ToInt64(timeFile.ReadAllText());
+
+            Drawer = new TimeLeftBar(x, y, width, time);
         }
     }
 }

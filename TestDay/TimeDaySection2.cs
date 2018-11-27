@@ -12,7 +12,7 @@ namespace TestDay
 
         protected override void RunInternal(string input)
         {
-            Thread.Sleep(2500);
+            Thread.Sleep(8000);
         }
     }
 }

@@ -7,7 +7,6 @@ namespace TestDay
 {
     public class ProgressDaySection : ProgressDay
     {
-        private PercentProgressBar bar;
         public ProgressDaySection() : base(0, 0)
         {
         }
