@@ -24,14 +24,15 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using System;
 using System.Threading;
 using AdventOfCodeLibrary.days;
 
-namespace TestDay
+namespace Day0
 {
-    public class SpinnerDaySection2 : SpinnerDay
+    public class Day0Section2 : SpinnerDay
     {
-        public SpinnerDaySection2() : base(1, 1)
+        public Day0Section2() : base(0, 2)
         {
 
         }
@@ -39,6 +40,7 @@ namespace TestDay
         protected override void RunInternal(string input)
         {
             Thread.Sleep(1500);
+            throw new ArgumentException("Null!", "param");
         }
     }
 }

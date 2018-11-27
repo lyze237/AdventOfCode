@@ -27,18 +27,21 @@
 using System.Threading;
 using AdventOfCodeLibrary.days;
 
-namespace TestDay
+namespace Day0
 {
-    public class TimeDaySection2 : TimeDay
+    public class Day0Section0 : ProgressDay
     {
-        public TimeDaySection2() : base(1, 2)
+        public Day0Section0() : base(0, 0)
         {
-
         }
 
         protected override void RunInternal(string input)
         {
-            Thread.Sleep(8000);
+            for (int i = 0; i <= 100; i++)
+            {
+                Update(i);
+                Thread.Sleep(25);
+            }
         }
     }
 }

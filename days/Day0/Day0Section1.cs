@@ -28,19 +28,22 @@ using System;
 using System.Threading;
 using AdventOfCodeLibrary.days;
 
-namespace TestDay
+namespace Day0
 {
-    public class SpinnerDaySection : SpinnerDay
+    public class Day0Section1 : ProgressDay
     {
-        public SpinnerDaySection() : base(0, 1)
+        public Day0Section1() : base(0, 1)
         {
-
         }
 
         protected override void RunInternal(string input)
         {
-            Thread.Sleep(1500);
-            throw new ArgumentException("Null!", "param");
+            var rnd = new Random();
+            for (int i = 0; i <= 100; i++)
+            {
+                Update(i);
+                Thread.Sleep(rnd.Next(0, 50));
+            }
         }
     }
 }

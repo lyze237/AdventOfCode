@@ -24,26 +24,21 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
 using System.Threading;
 using AdventOfCodeLibrary.days;
 
-namespace TestDay
+namespace Day0
 {
-    public class ProgressDaySection2 : ProgressDay
+    public class Day0Section3 : SpinnerDay
     {
-        public ProgressDaySection2() : base(1, 0)
+        public Day0Section3() : base(0, 3)
         {
+
         }
 
         protected override void RunInternal(string input)
         {
-            var rnd = new Random();
-            for (int i = 0; i <= 100; i++)
-            {
-                Update(i);
-                Thread.Sleep(rnd.Next(0, 50));
-            }
+            Thread.Sleep(1500);
         }
     }
 }
