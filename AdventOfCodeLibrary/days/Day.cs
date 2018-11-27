@@ -64,8 +64,8 @@ namespace AdventOfCodeLibrary.days
                 if (Drawer is TimeLeftBar bar)
                     bar.Start();
 
-                RunInternal(input);
-                LockConsole.WriteInAt($"Ok!", Drawer.X + Drawer.Width + 2, Drawer.Y, ConsoleColor.Green, ConsoleColor.Black);
+                var result = RunInternal(input);
+                LockConsole.WriteInAt($"Success: {result ?? "null"}", Drawer.X + Drawer.Width + 2, Drawer.Y, ConsoleColor.Green, ConsoleColor.Black);
             }
             catch (Exception e)
             {
@@ -84,6 +84,6 @@ namespace AdventOfCodeLibrary.days
             Drawer.Done = true;
         }
 
-        protected abstract void RunInternal(string input);
+        protected abstract object RunInternal(string input);
     }
 }

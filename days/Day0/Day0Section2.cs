@@ -37,7 +37,7 @@ namespace Day0
 
         }
 
-        protected override void RunInternal(string input)
+        protected override object RunInternal(string input)
         {
             Thread.Sleep(1500);
             throw new ArgumentException("Null!", "param");

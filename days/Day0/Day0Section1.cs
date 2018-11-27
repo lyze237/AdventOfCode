@@ -36,7 +36,7 @@ namespace Day0
         {
         }
 
-        protected override void RunInternal(string input)
+        protected override object RunInternal(string input)
         {
             var rnd = new Random();
             for (int i = 0; i <= 100; i++)
@@ -44,6 +44,8 @@ namespace Day0
                 Update(i);
                 Thread.Sleep(rnd.Next(0, 50));
             }
+
+            return 100;
         }
     }
 }

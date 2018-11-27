@@ -40,10 +40,5 @@ namespace AdventOfCode
 
             Console.ReadKey();
         }
-
-        private void StartDay()
-        {
-
-        }
     }
 }

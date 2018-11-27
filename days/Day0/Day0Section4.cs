@@ -36,9 +36,11 @@ namespace Day0
 
         }
 
-        protected override void RunInternal(string input)
+        protected override object RunInternal(string input)
         {
             Thread.Sleep(3500);
+
+            return "ovo";
         }
     }
 }

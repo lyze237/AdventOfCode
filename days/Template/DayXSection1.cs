@@ -8,8 +8,9 @@ namespace DayX
         {
         }
 
-        protected override void RunInternal(string input)
+        protected override object RunInternal(string input)
         {
+            return null;
         }
     }
 }
