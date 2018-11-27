@@ -34,7 +34,7 @@ namespace AdventOfCode.drawers
             var str = $"{percent} %";
 
             Console.ForegroundColor = Text;
-            Console.SetCursorPosition(X + Width / 2 - str.Length / 2, Y);
+            Console.SetCursorPosition((int) (X + Width / 2 - str.Length / 2), Y);
             Console.Write(str);
         }
 

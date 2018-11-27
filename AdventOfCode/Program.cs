@@ -22,6 +22,14 @@ namespace AdventOfCode
             var percentProgressBar = new PercentProgressBar(5, 5, 100) {MinValue = 0, Value = 50, MaxValue = 100};
             manager.Add(percentProgressBar);
 
+            var timePB = new TimeLeftBar(10, 10, 100, 20 * 1000);
+            Task.Run(async () =>
+            {
+                await Task.Delay(4000);
+                timePB.Start();
+            });
+            manager.Add(timePB);
+
             manager.Start();
 
             bool right = true;

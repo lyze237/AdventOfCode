@@ -7,15 +7,15 @@ namespace AdventOfCode.drawers
         #region Fields
 
         private int width;
-        private int minValue;
-        private int value;
-        private int maxValue;
+        private long minValue;
+        private long value;
+        private long maxValue;
 
         #endregion
 
         #region Properties
 
-        public int MaxValue
+        public long MaxValue
         {
             get => maxValue;
             set
@@ -25,7 +25,7 @@ namespace AdventOfCode.drawers
             }
         }
 
-        public int Value
+        public long Value
         {
             get => value;
             set
@@ -35,7 +35,7 @@ namespace AdventOfCode.drawers
             }
         }
 
-        public int MinValue
+        public long MinValue
         {
             get => minValue;
             set
@@ -64,7 +64,7 @@ namespace AdventOfCode.drawers
             
         }
 
-        public ProgressBar(int x, int y, int width, int value, int minValue, int maxValue, ConsoleColor foreground = ConsoleColor.Cyan, ConsoleColor background = ConsoleColor.Black) : base(x, y, foreground, background)
+        public ProgressBar(int x, int y, int width, long value, long minValue, long maxValue, ConsoleColor foreground = ConsoleColor.Cyan, ConsoleColor background = ConsoleColor.Black) : base(x, y, foreground, background)
         {
             Width = width;
             MinValue = minValue;
@@ -82,10 +82,10 @@ namespace AdventOfCode.drawers
 
             Console.Write('[');
             if (newValue - 1 > 0)
-                Console.Write(new string('=', newValue - 1));
+                Console.Write(new string('=', (int) (newValue - 1)));
             Console.Write('>');
             if (Width - newValue > 0)
-                Console.Write(new string(' ', newValue == 0 ? newWidth - 1 : newWidth - newValue));
+                Console.Write(new string(' ', (int) (newValue == 0 ? newWidth - 1 : newWidth - newValue)));
             Console.Write(']');
         }
 
