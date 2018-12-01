@@ -30,6 +30,8 @@ namespace AdventOfCodeLibrary.days
 {
     public abstract class ProgressDay : Day
     {
+        protected PercentProgressBar ProgressBar => Drawer as PercentProgressBar;
+
         protected ProgressDay(int dayNumber, int section) : base(dayNumber, section)
         {
 
@@ -42,7 +44,7 @@ namespace AdventOfCodeLibrary.days
 
         public void Update(int value)
         {
-            (Drawer as PercentProgressBar).Value = value;
+            ProgressBar.Value = value;
         }
 
     }
