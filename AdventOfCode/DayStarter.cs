@@ -83,7 +83,7 @@ namespace AdventOfCode
                 string sectionStr = $"Section {day.Section}: "; 
                 LockConsole.WriteLine(sectionStr);
 
-                day.SetupDrawer(sectionStr.Length + 2, y, width - sectionStr.Length);
+                day.SetupDrawer(sectionStr.Length + 2, y - 1, width - sectionStr.Length);
 
                 drawerManager.Add(day.Drawer);
 
