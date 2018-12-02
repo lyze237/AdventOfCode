@@ -62,7 +62,7 @@ namespace AdventOfCode
 
                 if (day.Section == 0)
                 {
-                    var str = $"#    Day {day.DayNumber}    #";
+                    string str = $"#    Day {day.DayNumber}    #";
 
                     if (day.DayNumber != 0)
                     {
@@ -82,7 +82,7 @@ namespace AdventOfCode
                         y += 8;
                 }
 
-                var sectionStr = $"Section {day.Section}: "; 
+                string sectionStr = $"Section {day.Section}: "; 
                 LockConsole.WriteLine(sectionStr);
 
                 day.SetupDrawer(sectionStr.Length + 2, y, width - sectionStr.Length);

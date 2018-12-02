@@ -65,14 +65,14 @@ namespace AdventOfCodeLibrary.days
                     bar.Start();
 
                 var result = RunInternal(input);
-                LockConsole.WriteInAt($"Success: {result ?? "null"}", Drawer.X + Drawer.Width + 2, Drawer.Y, ConsoleColor.Green, ConsoleColor.Black);
+                LockConsole.WriteInAt($"Success: {result ?? "null"}", Drawer.X + Drawer.Width + 2, Drawer.Y, ConsoleColor.Green);
             }
             catch (Exception e)
             {
-                var msg = e.Message.Replace("\r", "").Replace("\n", " ");
+                string msg = e.Message.Replace("\r", "").Replace("\n", " ");
                 var stackTrace = new StackTrace(e, true);
                 var frame = stackTrace.GetFrame(0);
-                LockConsole.WriteInAt($"{frame.GetFileLineNumber()}/{frame.GetFileColumnNumber()} {msg}", Drawer.X + Drawer.Width + 2, Drawer.Y, ConsoleColor.Red, ConsoleColor.Black);
+                LockConsole.WriteInAt($"{frame.GetFileLineNumber()}/{frame.GetFileColumnNumber()} {msg}", Drawer.X + Drawer.Width + 2, Drawer.Y, ConsoleColor.Red);
                 Drawer.Errored = true;
             }
             var timeSpan = DateTime.Now - now;

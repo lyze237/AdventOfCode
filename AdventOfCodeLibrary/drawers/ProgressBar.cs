@@ -91,8 +91,8 @@ namespace AdventOfCodeLibrary.drawers
 
         protected override void DrawInternal()
         {
-            var newWidth = Width - 2;
-            var newValue = (Value - MinValue) * newWidth / (MaxValue - MinValue);
+            int newWidth = Width - 2;
+            long newValue = (Value - MinValue) * newWidth / (MaxValue - MinValue);
 
             Console.Write('[');
             if (newValue - 1 > 0)

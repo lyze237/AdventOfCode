@@ -35,7 +35,6 @@ namespace AdventOfCodeLibrary.drawers
         public int Width { get; set; }
 
         public ConsoleColor Foreground { get; set; }
-        public ConsoleColor Background { get; set; }
 
         public bool Dirty { get; set; } = true;
         public bool Errored { get; set; }
@@ -60,7 +59,6 @@ namespace AdventOfCodeLibrary.drawers
             Width = width;
 
             Foreground = foreground;
-            Background = background;        
         }
 
         public void Draw()
@@ -71,7 +69,6 @@ namespace AdventOfCodeLibrary.drawers
             lock (LockConsole.GetLock())
             {
                 Console.ForegroundColor = Foreground;
-                Console.BackgroundColor = Background;
 
                 Console.SetCursorPosition(X, Y);
 

@@ -77,13 +77,14 @@ namespace AdventOfCodeLibrary
             WriteInAt(msg + "\n", x, y, foreground, background);
         }
 
-        public static void WriteInAt(string msg, int x, int y, ConsoleColor foreground, ConsoleColor background)
+        public static void WriteInAt(string msg, int x, int y, ConsoleColor foreground, ConsoleColor? background = null)
         {
             lock (Lock)
             {
                 Console.SetCursorPosition(x, y);
                 Console.ForegroundColor = foreground;
-                Console.BackgroundColor = background;
+                if (background.HasValue)
+                    Console.BackgroundColor = background.Value;
                 Console.Write(msg);
             }
         }

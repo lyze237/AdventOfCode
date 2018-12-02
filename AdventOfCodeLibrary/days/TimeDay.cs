@@ -38,7 +38,7 @@ namespace AdventOfCodeLibrary.days
 
         public override void SetupDrawer(int x, int y, int width)
         {
-            var time = -1L;
+            long time = -1L;
             if (timeFile.Exists)
                 time = Convert.ToInt64(timeFile.ReadAllText());
 

@@ -35,13 +35,10 @@ namespace AdventOfCodeLibrary.drawers
 
         public long Time { get; set; }
 
-        public ConsoleColor Text { get; set; }
-
         private DateTime? startedAt;
 
         public TimeLeftBar(int x, int y, int width, long time = -1) : base(x, y, width)
         {
-            Text = ConsoleColor.White;
             Time = time;
 
             progressBar = new ProgressBar(x, y, width) { MaxValue = time };
@@ -51,9 +48,9 @@ namespace AdventOfCodeLibrary.drawers
 
         protected override void DrawInternal()
         {
-            var text = DrawBar();
+            string text = DrawBar();
 
-            Console.ForegroundColor = Text;
+            Console.ResetColor();
             Console.SetCursorPosition(X + Width / 2 - text.Length / 2, Y);
             Console.Write(text);
         }
@@ -108,8 +105,6 @@ namespace AdventOfCodeLibrary.drawers
         {
             if (drawer.Foreground != Foreground)
                 drawer.Foreground = Foreground;
-            if (drawer.Background != Background)
-                drawer.Background = Background;
         }
 
         public void Start()

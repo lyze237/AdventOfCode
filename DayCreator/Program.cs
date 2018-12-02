@@ -17,7 +17,7 @@ namespace DayCreator
             var templateDir = daysDir.GetSubDirectory("Template");
 
             Console.Write("Day to generate: ");
-            var day = Convert.ToInt32(Console.ReadLine());
+            int day = Convert.ToInt32(Console.ReadLine());
 
             var dayDir = daysDir.GetSubDirectory($"Day{day}");
             dayDir.Create();
