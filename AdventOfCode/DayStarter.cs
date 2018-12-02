@@ -50,8 +50,6 @@ namespace AdventOfCode
 
         public void Start(params int[] whichDays)
         {
-            Console.WriteLine(days.Count);
-
             var ourDays = days;
             if (whichDays.Length > 0)
                 ourDays.RemoveAll(day => !whichDays.Contains(day.DayNumber));
@@ -60,11 +58,11 @@ namespace AdventOfCode
             {
                 var day = days[index];
 
-                if (day.Section == 0)
+                if (day.Section == days.Where(d => d.DayNumber == day.DayNumber).First().Section)
                 {
                     string str = $"#    Day {day.DayNumber}    #";
 
-                    if (day.DayNumber != 0)
+                    if (day.DayNumber != days[0].DayNumber)
                     {
                         LockConsole.WriteLine();
                         LockConsole.WriteLine();
@@ -76,7 +74,7 @@ namespace AdventOfCode
                     LockConsole.WriteLine(new string(' ', width / 2 - str.Length / 2) + new string('#', str.Length));
                     LockConsole.WriteLine();
 
-                    if (day.DayNumber == 0)
+                    if (day.DayNumber == days[0].DayNumber)
                         y += 4;
                     else
                         y += 8;
