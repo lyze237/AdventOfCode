@@ -12,7 +12,7 @@ namespace Day1
 
         protected override object RunInternal(string input)
         {
-            var recentFrequencies = new List<int> {0};
+            var recentFrequencies = new SortedSet<int> {0};
             var changes = input.Split("\n");
             var frequency = 0;
 

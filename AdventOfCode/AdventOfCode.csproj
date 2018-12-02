@@ -9,6 +9,7 @@
     <ProjectReference Include="..\AdventOfCodeLibrary\AdventOfCodeLibrary.csproj" />
     <ProjectReference Include="..\days\Day0\Day0.csproj" />
     <ProjectReference Include="..\days\Day1\Day1.csproj" />
+    <ProjectReference Include="..\days\Day2\Day2.csproj" />
   </ItemGroup>
     <ItemGroup>
     <PackageReference Include="owl.sh.owlutils" Version="1.0.71" />
