@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using AdventOfCodeLibrary.days;
@@ -15,79 +14,47 @@ namespace Day3
 
         protected override object RunInternal(string input)
         {
-            string[] lines = input.Split("\n");
-
-            Dictionary<int, Dictionary<int, int>> field = new Dictionary<int, Dictionary<int, int>>();
-
+            var lines = input.Split("\n");
+            
+            var table = new int[1000, 1000];
+            var noOverlaps = new List<int>();
+            
             ProgressBar.MaxValue = lines.Length - 1;
 
-            var maxX = 0;
-            var maxY = 0;
-
-            for (int i = 0; i < lines.Length; i++) 
+            for (var index = 0; index < lines.Length; index++)
             {
-                var match = Regex.Match(lines[i], @"(?<claim>#(?<id>\d+) @ (?<l>\d+),(?<t>\d+): (?<w>\d+)x(?<h>\d+))");
-                var groups = match.Groups;
+                var match = Regex.Match(lines[index], @"(?<claim>#(?<id>\d+) @ (?<l>\d+),(?<t>\d+): (?<w>\d+)x(?<h>\d+))");
+                var matchGroups = match.Groups;
 
-                var id = Convert.ToInt32(groups["id"].Value);
-                var left = Convert.ToInt32(groups["l"].Value);
-                var top = Convert.ToInt32(groups["t"].Value);
-                var width = Convert.ToInt32(groups["w"].Value);
-                var height = Convert.ToInt32(groups["h"].Value);
+                int id = Convert.ToInt32(matchGroups["id"].Value);
+                int left = Convert.ToInt32(matchGroups["l"].Value);
+                int top = Convert.ToInt32(matchGroups["t"].Value);
+                int width = Convert.ToInt32(matchGroups["w"].Value);
+                int height = Convert.ToInt32(matchGroups["h"].Value);
 
-                for (int x = left; x < left + width; x++) {
-                    for (int y = top; y < top + height; y++) {
-                        if (!field.ContainsKey(x))
-                            field.Add(x, new Dictionary<int, int>());
+                noOverlaps.Add(id);
 
-                        if (field[x].ContainsKey(y))
+                for (int x = left; x < left + width; x++)
+                {
+                    for (int y = top; y < top + height; y++)
+                    {
+                        int previousId = table[x, y];
+                        if (previousId == 0)
                         {
-                            field[x][y] = -1;
+                            table[x, y] = id;
                         }
-                        else 
+                        else
                         {
-                            field[x].Add(y, id);
+                            noOverlaps.Remove(id);
+                            noOverlaps.Remove(previousId);
                         }
-
-                        if (maxX < x)
-                            maxX = x;
-
-                        if (maxY < y)
-                            maxY = y;
                     }
                 }
 
-                Update(i);
+                Update(index);
             }
-
-            var validId = -1;
-            foreach (var row in field.Keys) {
-                foreach (var col in field[row].Keys) {
-                    if (field[row][col] != -1) {
-                        validId = field[row][col];
-                    }
-                }
-            }
-
-            var str = "";
-            for (int x = 0; x < maxX; x++) {
-                for (int y = 0; y < maxY; y++) {
-                    if (field.ContainsKey(x) && field[x].ContainsKey(y))
-                        str += " " + ("" + field[x][y]).PadRight(4) + " ";
-                    else
-                        str += " .... ";
-                }
-                str += "\n";
-            }
-            var f = new FileInfo("out.txt");
-            File.WriteAllText(f.FullName, str);
-            Console.Clear();
-
-            Console.ResetColor();
-            Console.WriteLine(f.FullName);
-
-            Console.ReadKey();
-            return validId;
+            
+            return noOverlaps.First();
         }
     }
 }
