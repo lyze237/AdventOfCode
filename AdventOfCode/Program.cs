@@ -36,7 +36,7 @@ namespace AdventOfCode
 
             var days = DayFinder.Find();
             var dayStarter = new DayStarter(days);
-            dayStarter.Start(7);
+            dayStarter.Start(8);
 
             Console.ReadKey();
         }
