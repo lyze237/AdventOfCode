@@ -16,6 +16,7 @@
     <ProjectReference Include="..\days\Day6\Day6.csproj" />
     <ProjectReference Include="..\days\Day7\Day7.csproj" />
     <ProjectReference Include="..\days\Day8\Day8.csproj" />
+    <ProjectReference Include="..\days\Day9\Day9.csproj" />
   </ItemGroup>
     <ItemGroup>
     <PackageReference Include="owl.sh.owlutils" Version="1.0.71" />
