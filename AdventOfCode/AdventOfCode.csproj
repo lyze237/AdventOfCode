@@ -8,6 +8,7 @@
   <ItemGroup>
     <ProjectReference Include="..\AdventOfCodeLibrary\AdventOfCodeLibrary.csproj" />
     <ProjectReference Include="..\days\Day0\Day0.csproj" />
+    <ProjectReference Include="..\days\Day11\Day11.csproj" />
     <ProjectReference Include="..\days\Day1\Day1.csproj" />
     <ProjectReference Include="..\days\Day2\Day2.csproj" />
     <ProjectReference Include="..\days\Day3\Day3.csproj" />

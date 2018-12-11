@@ -48,7 +48,7 @@ namespace AdventOfCode
             drawerManager = new DrawerManager();
         }
 
-        public void Start(params int[] whichDays)
+        public void Start(bool animate, params int[] whichDays)
         {
             var ourDays = days;
             if (whichDays.Length > 0)
@@ -90,7 +90,8 @@ namespace AdventOfCode
                 StartDay(day);
             }
 
-            drawerManager.Start();
+            if (animate)
+                drawerManager.Start();
         }
 
 
