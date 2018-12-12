@@ -6,6 +6,6 @@
   </PropertyGroup>
 
     <ItemGroup>
-    <PackageReference Include="owl.sh.owlutils" Version="1.0.71" />
+    <PackageReference Include="owl.sh.owlutils" Version="1.0.73" />
   </ItemGroup>
 </Project>
