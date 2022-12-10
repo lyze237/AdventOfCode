@@ -1,4 +1,4 @@
-﻿namespace AdventOfCode.Year2022.Extensins;
+﻿namespace AdventOfCode.Year2022.Extensions;
 
 public static class ArrayExtensions
 {

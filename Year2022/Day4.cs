@@ -1,4 +1,4 @@
-﻿using AdventOfCode.Year2022.Extensins;
+﻿using AdventOfCode.Year2022.Extensions;
 using Tidy.AdventOfCode;
 
 namespace AdventOfCode.Year2022;
