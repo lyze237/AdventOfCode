@@ -1,10 +1,13 @@
-﻿using AdventOfCode.Year2022.Extensions;
+﻿using System.Text;
+using AdventOfCode.Year2022.Extensions;
 using Tidy.AdventOfCode;
 
 namespace AdventOfCode.Year2022;
 
 public class Day10 : Day<List<(string, int?)>>
 {
+    private static readonly StringBuilder Output = new();
+    
     private class Sprite
     {
         private int[] positions = null!;
@@ -18,9 +21,9 @@ public class Day10 : Day<List<(string, int?)>>
         public void Draw(int marker)
         {
             if (marker % 40 == 0 && marker != 0)
-                Console.WriteLine();
-            
-            Console.Write(positions.Contains(marker % 40) ? '#' : '.');
+                Output.Append('\n');
+
+            Output.Append(positions.Contains(marker % 40) ? '#' : '.');
         }
     }
     
@@ -69,9 +72,9 @@ public class Day10 : Day<List<(string, int?)>>
         foreach (var (cmd, val) in Input)
             commands[cmd].Invoke(processor, val);
 
-        Console.WriteLine("\n");
+        Console.WriteLine($"\n{Output}\n");
 
-        throw new Exception("Look at console output");
+        return Output.ToString().Ocr();
     }
     
     public override List<(string, int?)> ParseInput(string rawInput) =>
