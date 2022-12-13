@@ -1,22 +1,23 @@
-﻿using Tidy.AdventOfCode;
+﻿using AoC.Framework;
+using NUnit.Framework;
 
-namespace AdventOfCode.Year2022;
+namespace AoC._2022;
 
+[TestFixture]
 public class Day8 : Day<char[][]>
 {
-    public override char[][] ParseInput(string rawInput) =>
-        rawInput.Split("\n").Select(arr => arr.ToCharArray()).ToArray();
+    public Day8() : base(2022, 8) { }
 
-    public override object ExecutePart1()
+    protected override object DoPart1(char[][] input)
     {
-        var forest = new Forest(Input);
+        var forest = new Forest(input);
 
         return forest.Trees.Count(tree => Directions.Any(d => forest.IsTallest(tree, d)));
     }
 
-    public override object ExecutePart2()
+    protected override object DoPart2(char[][] input)
     {
-        var forest = new Forest(Input);
+        var forest = new Forest(input);
 
         return forest.Trees.Select(tree => Directions.Aggregate(1, (left, right) => left * forest.TreeViewDistance(tree, right))).Max();
     }
@@ -35,8 +36,8 @@ public class Day8 : Day<char[][]>
         public Forest(char[][] input) : this(input, input.Length, input[0].Length)
         {
             for (var y = 0; y < Y; y++)
-                for (var x = 0; x < X; x++)
-                    Trees.Add(new Tree(Input[y][x], y, x));
+            for (var x = 0; x < X; x++)
+                Trees.Add(new Tree(Input[y][x], y, x));
         }
 
         public int TreeViewDistance(Tree tree, (int x, int y) dir) =>
@@ -58,4 +59,7 @@ public class Day8 : Day<char[][]>
             return trees;
         }
     }
+
+    protected override char[][] ParseInput(string input) => 
+        input.Split("\n").Select(arr => arr.ToCharArray()).ToArray();
 }

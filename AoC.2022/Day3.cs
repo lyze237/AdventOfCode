@@ -1,14 +1,18 @@
-﻿using Tidy.AdventOfCode;
+﻿using AoC.Framework;
+using NUnit.Framework;
 
-namespace AdventOfCode.Year2022;
+namespace AoC._2022;
 
-public class Day3 : Day.NewLineSplitParsed<string>
+[TestFixture]
+public class Day3 : Day
 {
-    public override object ExecutePart1()
+    public Day3() : base(2022, 3) { }
+
+    protected override object DoPart1(string[] input)
     {
         var total = 0;
 
-        foreach (var line in Input)
+        foreach (var line in input)
         {
             var left = line[..(line.Length / 2)];
             var right = line[(line.Length / 2)..];
@@ -21,11 +25,11 @@ public class Day3 : Day.NewLineSplitParsed<string>
         return total;
     }
 
-    public override object ExecutePart2()
+    protected override object DoPart2(string[] input)
     {
         var total = 0;
 
-        foreach (var group in Input.GroupByCount(3))
+        foreach (var group in GroupByCount(input, 3))
         {
             var first = group.First().Distinct().ToList();
 
@@ -37,7 +41,7 @@ public class Day3 : Day.NewLineSplitParsed<string>
 
         return total;
     }
-
+    
     private static int ConvertToPriority(char c)
     {
         if (c is >= 'A' and <= 'Z')
@@ -45,11 +49,8 @@ public class Day3 : Day.NewLineSplitParsed<string>
 
         return c - 'a' + 1;
     }
-}
-
-public static class LinqExtensions
-{
-    public static IEnumerable<IGrouping<int, TSource>> GroupByCount<TSource>(this IEnumerable<TSource> enumerable, int cnt)
+    
+    private static IEnumerable<IGrouping<int, TSource>> GroupByCount<TSource>(IEnumerable<TSource> enumerable, int cnt)
     {
         return enumerable.Select((item, index) => (item, index))
             .GroupBy(item => item.index / cnt, item => item.item);

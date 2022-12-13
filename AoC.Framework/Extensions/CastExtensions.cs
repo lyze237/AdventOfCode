@@ -1,4 +1,4 @@
-﻿namespace AdventOfCode.Year2022.Extensions;
+﻿namespace AoC.Framework.Extensions;
 
 public static class CastExtensions
 {

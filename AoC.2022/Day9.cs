@@ -1,25 +1,29 @@
-﻿using AdventOfCode.Year2022.Extensions;
-using Tidy.AdventOfCode;
+﻿using AoC.Framework;
+using AoC.Framework.Extensions;
+using NUnit.Framework;
 
-namespace AdventOfCode.Year2022;
+namespace AoC._2022;
 
-public class Day9 : Day.NewLineSplitParsed<string>
+[TestFixture]
+public class Day9 : Day
 {
-    public override object ExecutePart1() =>
-        CalculateRope(2);
+    public Day9() : base(2022, 9, true) { }
 
-    public override object ExecutePart2() =>
-        CalculateRope(10);
+    protected override object DoPart1(string[] input) => 
+        CalculateRope(2, input);
 
-    private int CalculateRope(int length)
+    protected override object DoPart2(string[] input) => 
+        CalculateRope(10, input);
+
+    private static int CalculateRope(int length, string[] input)
     {
         var visited = new HashSet<(int, int)>();
         var rope = new (int x, int y)[length];
 
-        foreach (var line in Input)
+        foreach (var line in input)
         {
             var (dir, cnt, _) = line.Split(" ");
-            for (var move = 0; move < Convert.ToInt32(cnt); move++)
+            for (var move = 0; move < cnt!.ToInt(); move++)
             {
                 rope[0] = MoveTip(rope[0], dir!);
 

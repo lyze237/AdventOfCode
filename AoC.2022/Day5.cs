@@ -1,13 +1,17 @@
 ﻿using System.Text.RegularExpressions;
-using Tidy.AdventOfCode;
+using AoC.Framework;
+using NUnit.Framework;
 
-namespace AdventOfCode.Year2022;
+namespace AoC._2022;
 
-public class Day5 : Day.NewLineSplitParsed<string>
+[TestFixture]
+public class Day5 : Day
 {
-    public override object ExecutePart1()
+    public Day5() : base(2022, 5) { }
+
+    protected override object DoPart1(string[] input)
     {
-        var (stacks, moves) = (ParseStacks(), ParseMoves());
+        var (stacks, moves) = (ParseStacks(input), ParseMoves(input));
         
         foreach (var (move, from, to) in moves)
         {
@@ -20,10 +24,10 @@ public class Day5 : Day.NewLineSplitParsed<string>
 
         return stacks.Aggregate("", (current, stack) => current + stack.Pop());
     }
-    
-    public override object ExecutePart2()
+
+    protected override object DoPart2(string[] input)
     {
-        var (stacks, moves) = (ParseStacks(), ParseMoves());
+        var (stacks, moves) = (ParseStacks(input), ParseMoves(input));
 
         var cratesPickedUp = new List<char>();
         foreach (var (move, from, to) in moves)
@@ -40,20 +44,20 @@ public class Day5 : Day.NewLineSplitParsed<string>
         return stacks.Aggregate("", (current, stack) => current + stack.Pop());
     }
     
-    private List<(int move, int from, int to)> ParseMoves()
+    private List<(int move, int from, int to)> ParseMoves(string[] input)
     {
         // Find where moves lines start
         var movesStartLine = 0;
-        for (; !Input[movesStartLine].Trim().StartsWith("m"); movesStartLine++) { }
+        for (; !input[movesStartLine].Trim().StartsWith("m"); movesStartLine++) { }
         
         // Just do a basic regex match, I'm lazy
         var regex = new Regex(@"move (?<move>\d+) from (?<from>\d+) to (?<to>\d+)");
 
         // Who needs classes
         var moves = new List<(int move, int from, int to)>();
-        for (var i = movesStartLine; i < Input.Length; i++)
+        for (var i = movesStartLine; i < input.Length; i++)
         {
-            var match = regex.Match(Input[i]);
+            var match = regex.Match(input[i]);
             
             moves.Add((Convert.ToInt32(match.Groups["move"].Value), Convert.ToInt32(match.Groups["from"].Value), Convert.ToInt32(match.Groups["to"].Value)));
         }
@@ -61,13 +65,13 @@ public class Day5 : Day.NewLineSplitParsed<string>
         return moves;
     }
 
-    private List<Stack<char>> ParseStacks()
+    private List<Stack<char>> ParseStacks(string[] input)
     {
         // Find where stack count line is
         var stackCountLine = 0;
-        for (; !Input[stackCountLine].Trim().StartsWith("1"); stackCountLine++) { }
+        for (; !input[stackCountLine].Trim().StartsWith("1"); stackCountLine++) { }
 
-        var stackInputLine = Input[stackCountLine];
+        var stackInputLine = input[stackCountLine];
 
         // Find amount of stacks
         var stackAmounts = Convert.ToInt32(stackInputLine.Trim().Last().ToString());
@@ -88,7 +92,7 @@ public class Day5 : Day.NewLineSplitParsed<string>
                 var currentStack = Convert.ToInt32(stackInputLine[stackLineIndex].ToString()) - 1;
 
                 // If that crate on the line we look at actually exists, add it to the stack
-                var crateInput = Input[reverseIndex][stackLineIndex];
+                var crateInput = input[reverseIndex][stackLineIndex];
                 if (crateInput != ' ')
                     stacks[currentStack].Push(crateInput);
             }

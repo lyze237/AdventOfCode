@@ -1,13 +1,16 @@
-﻿using Tidy.AdventOfCode;
+﻿using AoC.Framework;
+using NUnit.Framework;
 
-namespace AdventOfCode.Year2022;
+namespace AoC._2022;
 
-public class Day2 : Day.NewLineSplitParsed<string>
+[TestFixture]
+public class Day2 : Day
 {
-    public override object ExecutePart1()
-    {
-        return Input.Select(line => line.Split(" "))
-            .Select(input => (input[0], input[1]))
+    public Day2() : base(2022, 2) { }
+
+    protected override object DoPart1(string[] input) =>
+        input.Select(line => line.Split(" "))
+            .Select(i => (i[0], i[1]))
             .Select(match => match switch
             {
                 ("A", "X") => 1 + 3,
@@ -25,12 +28,10 @@ public class Day2 : Day.NewLineSplitParsed<string>
                 _ => throw new ArgumentOutOfRangeException()
             })
             .Sum();
-    }
 
-    public override object ExecutePart2()
-    {
-        return Input.Select(line => line.Split(" "))
-            .Select(input => (input[0], input[1]))
+    protected override object DoPart2(string[] input) =>
+        input.Select(line => line.Split(" "))
+            .Select(i => (i[0], i[1]))
             .Select(match => match switch
             {
                 ("A", "X") => 3 + 0,
@@ -48,5 +49,4 @@ public class Day2 : Day.NewLineSplitParsed<string>
                 _ => throw new ArgumentOutOfRangeException()
             })
             .Sum();
-    }
 }

@@ -1,11 +1,34 @@
-﻿using AdventOfCode.Year2022.Extensions;
-using Tidy.AdventOfCode;
+﻿using AoC.Framework;
+using AoC.Framework.Extensions;
+using NUnit.Framework;
 
-namespace AdventOfCode.Year2022;
+namespace AoC._2022;
 
+[TestFixture]
 public class Day7 : Day<List<Day7.Dir>>
 {
-    public override List<Dir> ParseInput(string rawInput)
+    public Day7() : base(2022, 7) { }
+
+    protected override object DoPart1(List<Dir> input)
+    {
+        return input.Where(d => d.GetSize() <= 100000)
+            .Select(d => d.GetSize())
+            .Sum();
+    }
+
+    protected override object DoPart2(List<Dir> input)
+    {
+        const int diskSize = 70000000;
+        var unused = diskSize - input.First(d => d.Name.Equals("/")).GetSize();
+        var free = 30000000 - unused;
+
+        return input
+            .Select(d => d.GetSize())
+            .Where(d => d > free)
+            .Min();
+    }
+
+    protected override List<Dir> ParseInput(string input)
     {
         var rootDir = new Dir(null, "/");
         var currentDir = rootDir;
@@ -13,7 +36,7 @@ public class Day7 : Day<List<Day7.Dir>>
         var allDirectories = new List<Dir> { currentDir };
 
         // This whole thing is written to not safeguard against invalid directories.
-        foreach (var line in rawInput.Split("\n"))
+        foreach (var line in input.Split("\n"))
         {
             if (line.StartsWith("$ cd"))
             {
@@ -43,26 +66,7 @@ public class Day7 : Day<List<Day7.Dir>>
 
         return allDirectories;
     }
-
-    public override object ExecutePart1()
-    {
-        return Input.Where(d => d.GetSize() <= 100000)
-            .Select(d => d.GetSize())
-            .Sum();
-    }
-
-    public override object ExecutePart2()
-    {
-        const int diskSize = 70000000;
-        var unused = diskSize - Input.First(d => d.Name.Equals("/")).GetSize();
-        var free = 30000000 - unused;
-
-        return Input
-            .Select(d => d.GetSize())
-            .Where(d => d > free)
-            .Min();
-    }
-
+    
     public class Dir
     {
         public string Name { get; }

@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace AdventOfCode;
+namespace AoC.Framework.Extensions;
 
 // https://github.com/encse/adventofcode/blob/master/Lib/Ocr.cs
 
@@ -31,7 +31,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
  */
 
-static class OcrExtension
+public static class OcrExtension
 {
     public static OcrString Ocr(this string st)
     {

@@ -1,27 +1,32 @@
 ﻿using System.Text.Json.Nodes;
-using AdventOfCode.Year2022.Extensions;
-using Tidy.AdventOfCode;
+using AoC.Framework;
+using AoC.Framework.Extensions;
+using NUnit.Framework;
 
-namespace AdventOfCode.Year2022;
+namespace AoC._2022;
 
-public class Day13 : Day
+[TestFixture]
+public class Day13 : Day<string>
 {
-    public override object ExecutePart1()
+    public Day13() : base(2022, 13) { }
+
+    protected override object DoPart1(string input)
     {
         var pairs = new List<(JsonNode left, JsonNode right)>();
 
-        foreach (var stringPairs in Input.Split("\n\n"))
+        foreach (var stringPairs in input.Split("\n\n"))
         {
             var (leftString, rightString, _) = stringPairs.Split("\n");
             pairs.Add((JsonNode.Parse(leftString!)!, JsonNode.Parse(rightString!))!);
         }
 
         return pairs.Select((pair, i) => CompareNodes(pair.left, pair.right) == true ? i + 1 : 0).Sum();
+        
     }
 
-    public override object ExecutePart2()
+    protected override object DoPart2(string input)
     {
-        var nodes = Input.Split("\n").Where(i => !string.IsNullOrEmpty(i)).Select(i => JsonNode.Parse(i)!).ToList();
+        var nodes = input.Split("\n").Where(i => !string.IsNullOrEmpty(i)).Select(i => JsonNode.Parse(i)!).ToList();
 
         var (first, second) = (JsonNode.Parse("[[2]]")!, JsonNode.Parse("[[6]]")!);
         nodes.AddRange(new[] { first, second });
@@ -30,7 +35,7 @@ public class Day13 : Day
 
         return (nodes.IndexOf(first) + 1) * (nodes.IndexOf(second) + 1);
     }
-
+    
     private static bool? CompareNodes(JsonNode leftNode, JsonNode rightNode)
     {
         if (leftNode is JsonValue leftValue && rightNode is JsonValue rightValue)
@@ -57,4 +62,7 @@ public class Day13 : Day
             _ => null,
         };
     }
+
+    protected override string ParseInput(string input) =>
+        input;
 }

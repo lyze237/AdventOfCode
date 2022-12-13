@@ -1,23 +1,27 @@
 ﻿using System.Text.RegularExpressions;
-using AdventOfCode.Year2022.Extensions;
-using Tidy.AdventOfCode;
+using AoC.Framework;
+using AoC.Framework.Extensions;
+using NUnit.Framework;
 
-namespace AdventOfCode.Year2022;
+namespace AoC._2022;
 
+[TestFixture]
 public partial class Day11 : Day<string[][]>
 {
-    public override string[][] ParseInput(string rawInput) =>
-        rawInput.Split("\n\n").Select(s => s.Split("\n")).ToArray();
+    public Day11() : base(2022, 11) { }
 
-    public override object ExecutePart1() => 
-        Calculate(20, true);
+    protected override object DoPart1(string[][] input) =>
+        Calculate(20, true, input);
 
-    public override object ExecutePart2() => 
-        Calculate(10000, false);
+    protected override object DoPart2(string[][] input) => 
+        Calculate(10000, false, input);
 
-    private object Calculate(int iterations, bool decreaseWorry)
+    protected override string[][] ParseInput(string input) =>
+        input.Split("\n\n").Select(s => s.Split("\n")).ToArray();
+    
+    private object Calculate(int iterations, bool decreaseWorry, string[][] input)
     {
-        var monkeys = Input.Select(monkeyInput => new Monkey(monkeyInput)).ToList();
+        var monkeys = input.Select(monkeyInput => new Monkey(monkeyInput)).ToList();
 
         for (var i = 0; i < iterations; i++)
             monkeys.ForEach(m => m.Process(monkeys, decreaseWorry));
