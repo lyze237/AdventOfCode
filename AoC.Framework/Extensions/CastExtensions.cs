@@ -7,4 +7,7 @@ public static class CastExtensions
     
     public static long ToLong(this string s) =>
         Convert.ToInt64(s);
+
+    public static int[] ToInts(this IEnumerable<string> ints) =>
+        ints.Select(i => i.ToInt()).ToArray();
 }

@@ -1,6 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Web;
 using HtmlAgilityPack;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -86,7 +87,7 @@ public class AoC
         doc.LoadHtml(Page);
 
         var exampleNode = doc.DocumentNode.SelectSingleNode("//article[@class='day-desc']/p[(contains(., 'For') or contains(., 'for')) and (contains(., 'example') or contains(., 'Example')) and contains(., ':')]/following-sibling::pre/code");
-        return exampleNode.InnerText.TrimEnd();
+        return HttpUtility.HtmlDecode(exampleNode.InnerText.TrimEnd());
     }
     
     public string? FindExampleAnswer(int part)
@@ -95,7 +96,7 @@ public class AoC
         doc.LoadHtml(Page);
         
         var solutionNode = doc.DocumentNode.SelectSingleNode($"//article[@class='day-desc'][{part}]/descendant::em[last() -1]");
-        return solutionNode?.InnerText;
+        return HttpUtility.HtmlDecode(solutionNode?.InnerText);
     }
     
     public string? FindAnswer(int part)
