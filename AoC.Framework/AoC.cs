@@ -52,7 +52,7 @@ public class AoC
 
         cache.WriteAnswerFile(year, day, part, hash, answerFile);
 
-        return (!answerFile.Contains("That's not the right answer."), answerText);
+        return (!answerFile.Contains("That's not the right answer"), answerText);
     }
 
     private async Task FetchInput(int year, int day)
