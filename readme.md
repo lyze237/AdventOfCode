@@ -2,7 +2,8 @@
 
 This are all my solutions I've done for Advent of Code.
 
-* 2022 => 13 ⭐⭐ (I'm trying to use linq as much as possible, so some stuff might look strange)
+* 2023 => ?? ⭐⭐
+* 2022 => 15 ⭐⭐ (I'm trying to use linq as much as possible, so some stuff might look strange)
 * 2021 => 2 ⭐⭐ (I used this to test `AoC.Framework`)
 * 2018 => 14 ⭐⭐ (Didn't have more time to continue AoC every day)
 * 2017 => 25 ⭐⭐ (Whoo!)
