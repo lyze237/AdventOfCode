@@ -86,7 +86,7 @@ public class AoC
         var doc = new HtmlDocument();
         doc.LoadHtml(Page);
 
-        var exampleNode = doc.DocumentNode.SelectSingleNode("//article[@class='day-desc']/p[(contains(., 'For') or contains(., 'for')) and (contains(., 'example') or contains(., 'Example')) and contains(., ':')]/following-sibling::pre/code");
+        var exampleNode = doc.DocumentNode.SelectSingleNode("//article[@class='day-desc']/p[(contains(., 'For') or contains(., 'Here') or contains(., 'here') or contains(., 'for')) and (contains(., 'example') or contains(., 'Example')) and contains(., ':')]/following-sibling::pre/code");
         return HttpUtility.HtmlDecode(exampleNode.InnerText.TrimEnd());
     }
     

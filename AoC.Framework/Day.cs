@@ -46,6 +46,9 @@ public abstract class Day<T>
         // Example
         logger.LogInformation("{Year}-{Day}-{Part}: Running Example", year, day, 1);
         var input = aoc.FindExampleInput()!;
+        if (!skipExamples)
+            Console.WriteLine("\n\n\nExample 1:\n");
+        
         var userAnswer = DoPart1(ParseInput(input));
         var exampleAnswer = aoc.FindExampleAnswer(1);
 
@@ -57,6 +60,7 @@ public abstract class Day<T>
         
         logger.LogInformation("{Year}-{Day}-{Part}: Running Actual Part", year, day, 1);
         // Actual
+        Console.WriteLine("\n\n\nActual 1:\n");
         userAnswer = DoPart1(ParseInput(aoc.Input));
 
         var answerOnPage = aoc.FindAnswer(1);
@@ -90,6 +94,8 @@ public abstract class Day<T>
         // Example
         logger.LogInformation("{Year}-{Day}-{Part}: Running Example", year, day, 2);
         var input = aoc.FindExampleInput()!;
+        if (!skipExamples)
+            Console.WriteLine("\n\n\nExample 2:\n");
         var userAnswer = DoPart2(ParseInput(input));
         var exampleAnswer = aoc.FindExampleAnswer(2);
 
@@ -108,6 +114,7 @@ public abstract class Day<T>
         
         logger.LogInformation("{Year}-{Day}-{Part}: Running Actual", year, day, 2);
         // Actual
+        Console.WriteLine("\n\n\nActual 2:\n");
         userAnswer = DoPart2(ParseInput(aoc.Input));
 
         var answerOnPage = aoc.FindAnswer(2);
