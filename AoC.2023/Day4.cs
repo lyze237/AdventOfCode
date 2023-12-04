@@ -52,8 +52,8 @@ public class Day4 : Day<Day4.Card[]>
             .Select(line => Regex.Match(line, @"Card\s+(?<card>\d+):(?<winners>[\s\d]+)\|(?<numbers>[\s\d]+)"))
             .Select(match => new Card(
                 match.Groups["card"].Value.ToInt(),
-                Regex.Split(match.Groups["winners"].Value.Trim(), @"\s+").Select(v => v.Trim().ToInt()).ToArray(),
-                Regex.Split(match.Groups["numbers"].Value.Trim(), @"\s+").Select(v => v.Trim().ToInt()).ToArray()
+                match.Groups["winners"].Value.Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(v => v.ToInt()).ToArray(),
+                match.Groups["numbers"].Value.Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(v => v.ToInt()).ToArray()
             ))
             .ToArray();
     }
