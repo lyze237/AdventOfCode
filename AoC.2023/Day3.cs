@@ -1,9 +1,11 @@
 ﻿using System.Text.RegularExpressions;
 using AoC.Framework;
 using AoC.Framework.Extensions;
+using NUnit.Framework;
 
 namespace AoC._2023;
 
+[TestFixture]
 public class Day3 : Day<Day3.Part[]>
 {
     public record Point(int Y, int X);

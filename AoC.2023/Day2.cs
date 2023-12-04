@@ -1,9 +1,11 @@
 ﻿using System.Text.RegularExpressions;
 using AoC.Framework;
 using AoC.Framework.Extensions;
+using NUnit.Framework;
 
 namespace AoC._2023;
 
+[TestFixture]
 public class Day2 : Day<Day2.Game[]>
 {
     public record Dice(int Number, string Color);
