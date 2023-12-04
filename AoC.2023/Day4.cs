@@ -32,15 +32,12 @@ public class Day4 : Day<Day4.Card[]>
 
         foreach (var card in input)
         {
-            while (card.Repeats-- > 0)
-            {
-                totalCards++;
-                
-                var score = card.Numbers.Count(n => card.Winners.Contains(n));
+            totalCards += card.Repeats;
+            
+            var score = card.Numbers.Count(n => card.Winners.Contains(n));
 
-                for (var i = card.Id; i < card.Id + score; i++)
-                    input[i].Repeats++;
-            }
+            for (var i = card.Id; i < card.Id + score; i++)
+                input[i].Repeats += card.Repeats;
         }
 
         return totalCards;
