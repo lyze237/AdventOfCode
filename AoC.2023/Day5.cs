@@ -20,28 +20,19 @@ public class Day5 : Day<(ulong[] seeds, Day5.Map[] maps)>
     {
     }
 
-    protected override object DoPart1((ulong[] seeds, Map[] maps) input) => 
-        input.seeds.Aggregate(ulong.MaxValue, (current, seed) => Math.Min(current, CurrentItem(input, seed)));
+    protected override object DoPart1((ulong[] seeds, Map[] maps) input) =>
+        input.seeds.AsParallel()
+            .Aggregate(ulong.MaxValue, (current, seed) => Math.Min(current, CurrentItem(input, seed)));
 
-    protected override object? DoPart2((ulong[] seeds, Map[] maps) input)
+    protected override object DoPart2((ulong[] seeds, Map[] maps) input)
     {
         var ranges = new List<(ulong from, ulong to)>();
         for (var i = 0; i < input.seeds.Length; i += 2)
             ranges.Add((input.seeds[i], input.seeds[i] + input.seeds[i + 1]));
 
-        var results = new ConcurrentBag<ulong>();
-
-        Task.WhenAll(ranges.Select(seed => Task.Run(() =>
-        {
-            var minimumLocation = ulong.MaxValue;
-
-            for (var i = seed.from; i < seed.to; i++)
-                minimumLocation = Math.Min(minimumLocation, CurrentItem(input, i));
-
-            results.Add(minimumLocation);
-        })).ToArray()).Wait();
-
-        return results.Min();
+        return ranges.AsParallel().Aggregate(ulong.MaxValue,
+            (current, seed) => EnumerableExtensions.CreateRange(seed.from, seed.to)
+                .Min(i => Math.Min(current, CurrentItem(input, i))));
     }
 
     private static ulong CurrentItem((ulong[] seeds, Map[] maps) input, ulong seed)
