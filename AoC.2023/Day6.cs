@@ -51,6 +51,6 @@ public class Day6 : Day<Day6.Race[]>
         var durations = Regex.Matches(duration!, @"\d+").Select(t => t.Value.ToULong()).ToArray();
         var records = Regex.Matches(record!, @"\d+").Select(d => d.Value.ToULong()).ToArray();
 
-        return durations.Select((t, i) => new Race(t, records[i])).ToArray();
+        return durations.Zip(records).Select(d => new Race(d.First, d.Second)).ToArray();
     }
 }
