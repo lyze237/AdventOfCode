@@ -1,5 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 using AoC.Framework;
+using AoC.Framework.Data;
 using AoC.Framework.Extensions;
 using NUnit.Framework;
 
@@ -8,8 +9,6 @@ namespace AoC._2023;
 [TestFixture]
 public class Day3 : Day<Day3.Part[]>
 {
-    public record Point(int Y, int X);
-
     public record Symbol(char Type, Point Point);
 
     public record Part(int Number, Symbol Symbol);

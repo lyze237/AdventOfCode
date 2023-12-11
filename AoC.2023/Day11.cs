@@ -1,4 +1,5 @@
 using AoC.Framework;
+using AoC.Framework.Data;
 using NUnit.Framework;
 
 namespace AoC._2023;
@@ -6,12 +7,6 @@ namespace AoC._2023;
 [TestFixture]
 public class Day11 : Day<List<List<char>>>
 {
-    public record Star(long X, long Y)
-    {
-        private long Steps { get; } = Math.Abs(X) + Math.Abs(Y);
-        public long Distance(Star other) => new Star(other.X - X, other.Y - Y).Steps;
-    }
-
     public Day11() : base(2023, 11, true)
     {
     }
@@ -29,14 +24,14 @@ public class Day11 : Day<List<List<char>>>
         var steps = 0L;
         for (var first = 0; first < stars.Count; first++)
             for (var second = first + 1; second < stars.Count; second++)
-                steps += stars[first].Distance(stars[second]);
+                steps += stars[first].ManhattanDistance(stars[second]);
 
         return steps;
     }
 
-    private static List<Star> FindStars(IReadOnlyList<List<char>> input, long expand)
+    private static List<Point> FindStars(IReadOnlyList<List<char>> input, long expand)
     {
-        var stars = new List<Star>();
+        var stars = new List<Point>();
 
         var linesToAdd = input.Select((line, i) => (index: i, noStar: line.All(c => c == '.'))).Where(tuple => tuple.noStar).Select(tuple => tuple.index).ToArray();
         var columnsToAdd = input[0].Select((_, i) => (index: i, noStar: input.All(l => l[i] == '.'))).Where(tuple => tuple.noStar).Select(tuple => tuple.index).ToArray();
@@ -49,7 +44,7 @@ public class Day11 : Day<List<List<char>>>
                 if (input[y][x] == '#')
                 {
                     var xOffset = columnsToAdd.Count(c => c <= x) * expand;
-                    stars.Add(new Star(y + yOffset, x + xOffset));
+                    stars.Add(new Point(y + yOffset, x + xOffset));
                 }
             }
         }

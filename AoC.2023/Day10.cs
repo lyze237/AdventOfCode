@@ -1,19 +1,12 @@
 ﻿using AoC.Framework;
+using AoC.Framework.Data;
 using NUnit.Framework;
 
 namespace AoC._2023;
 
 [TestFixture]
-public class Day10 : Day<Dictionary<Day10.Point, char>>
+public class Day10 : Day<Dictionary<Point, char>>
 {
-    public record Point(int X, int Y)
-    {
-        public static Point operator +(Point a, Point b) => new(a.X + b.X, a.Y + b.Y);
-        public static Point operator -(Point a, Point b) => new(a.X - b.X, a.Y - b.Y);
-        public static Point operator -(Point a) => new(-a.X, -a.Y);
-        public static Point operator -(Point a, int b) => new(a.X - b, a.Y - b);
-    }
-
     private static readonly Point Up = new(0, -1);
     private static readonly Point Down = new(0, 1);
     private static readonly Point Left = new(-1, 0);
