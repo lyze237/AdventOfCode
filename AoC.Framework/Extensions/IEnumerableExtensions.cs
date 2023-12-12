@@ -19,6 +19,17 @@ public static class EnumerableExtensions
             foreach (var item in enumerable)
                 yield return item;
     }
+    
+    public static IEnumerable<T> Repeat<T>(this IEnumerable<T> source, long count)
+    {
+        var enumerable = source as T[] ?? source.ToArray();
+
+        for (var i = 0L; i < count; i++)
+        {
+            foreach (var item in enumerable)
+                yield return item;
+        }
+    }
 
     public static long FindLcm(this IEnumerable<int> source) => 
         source.Aggregate(1L, (l, i) => FindLcm(l, i));

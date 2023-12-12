@@ -38,7 +38,7 @@ public class AoC
     {
         logger.LogInformation("{Year}-{Day}-{Part} Submitting: {Text}", year, day, part, text);
         
-        var hash = text.Length <= 10 ? text : Encoding.UTF8.GetString(md5.ComputeHash(Encoding.UTF8.GetBytes(text)));
+        var hash = text.Length <= 10 ? text : Convert.ToHexString(md5.ComputeHash(Encoding.UTF8.GetBytes(text)));
 
         var answerFile = cache.ReadAnswerFile(year, day, part, hash) ?? (await client.SubmitAnswer(year, day, part, text)).TrimEnd();
 
