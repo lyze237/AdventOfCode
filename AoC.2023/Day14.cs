@@ -1,4 +1,5 @@
 ﻿using AoC.Framework;
+using AoC.Framework.Extensions;
 
 namespace AoC._2023;
 
@@ -37,7 +38,7 @@ public class Day14 : Day<char[][]>
     private static char[][] RunCycle(char[][] input)
     {
         for (var i = 0; i < 4; i++)
-            input = Rotate(RunStep(input));
+            input = RunStep(input).Rotate();
 
         return input;
     }
@@ -75,24 +76,6 @@ public class Day14 : Day<char[][]>
         }
 
         return newY;
-    }
-
-    private static char[][] Rotate(IReadOnlyList<char[]> arr)
-    {
-        var width = arr[0].Length;
-        var depth = arr.Count;
-
-        var result = new char[width][];
-        for (var i = 0; i < width; i++)
-            result[i] = new char[depth];
-
-        for (var i = 0; i < depth; i++)
-        {
-            for (var j = 0; j < width; j++)
-                result[j][depth - i - 1] = arr[i][j];
-        }
-
-        return result;
     }
 
     private static int CountScore(IReadOnlyList<char[]> input)
