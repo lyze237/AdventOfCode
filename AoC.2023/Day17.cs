@@ -12,7 +12,7 @@ public class Day17 : Day<int[][]>
 {
     public record State(Point Point, Direction Direction, int MoveStreak);
     
-    public Day17() : base(2023, 17, true)
+    public Day17() : base(2023, 17, "102", "94")
     {
     }
 

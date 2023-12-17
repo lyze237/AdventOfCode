@@ -22,6 +22,8 @@ public abstract class Day<T>
     private readonly int day;
     private readonly bool skipExamples;
 
+    private readonly string? part1Example, part2Example;
+
     private readonly AoC aoc;
     private readonly ILogger<AoC> logger;
 
@@ -31,6 +33,19 @@ public abstract class Day<T>
         this.day = day;
         this.skipExamples = skipExamples;
 
+        var serviceProvider = new ServiceCollection().AddAoCFramework().BuildServiceProvider();
+        logger = serviceProvider.GetService<ILogger<AoC>>()!;
+        aoc = serviceProvider.GetRequiredService<AoC>();
+    }
+
+    protected Day(int year, int day, string part1Example, string part2Example)
+    {
+        this.year = year;
+        this.day = day;
+        this.skipExamples = false;
+        this.part1Example = part1Example;
+        this.part2Example = part2Example;
+        
         var serviceProvider = new ServiceCollection().AddAoCFramework().BuildServiceProvider();
         logger = serviceProvider.GetService<ILogger<AoC>>()!;
         aoc = serviceProvider.GetRequiredService<AoC>();
@@ -51,7 +66,7 @@ public abstract class Day<T>
         {
             Console.WriteLine("\n\n\nExample 1:\n");
             var userExampleAnswer = DoPart1(ParseInput(input));
-            var exampleAnswer = aoc.FindExampleAnswer(1);
+            var exampleAnswer = part1Example ?? aoc.FindExampleAnswer(1);
             logger.LogInformation("{Year}-{Day}-{Part}: Example answer found on website, checking that instead: '{Answer}' == '{User}'", year, day, 1, exampleAnswer, userExampleAnswer);
             Assert.AreEqual(exampleAnswer, userExampleAnswer?.ToString(), "Example Part 1 Failed");
         }
@@ -99,7 +114,7 @@ public abstract class Day<T>
             Console.WriteLine("\n\n\nExample 2:\n");
             
             var userExampleAnswer = DoPart2(ParseInput2(input));
-            var exampleAnswer = aoc.FindExampleAnswer(2);
+            var exampleAnswer = part2Example ?? aoc.FindExampleAnswer(2);
 
             if (userExampleAnswer == null)
                 Assert.Ignore("Part 2 isn't implemented yet or returns null");
