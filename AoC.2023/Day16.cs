@@ -1,9 +1,7 @@
 ﻿using System.Collections.Concurrent;
-using System.Xml;
 using AoC.Framework;
 using AoC.Framework.Data;
 using NUnit.Framework;
-using NUnit.Framework.Constraints;
 
 namespace AoC._2023;
 
@@ -15,7 +13,7 @@ public class Day16 : Day<char[][]>
     }
 
     protected override object DoPart1(char[][] input) => 
-        ShootBeam(input, new Point(0, 0), Point.Right).Count;
+        ShootBeam(input, new Point(0, 0), Direction.Right).Count;
 
     protected override object DoPart2(char[][] input)
     {
@@ -23,27 +21,27 @@ public class Day16 : Day<char[][]>
         
         for (var y = 0; y < input.Length; y++)
         {
-            outcomes.Add(ShootBeam(input, new Point(0, y), Point.Right).Count);
-            outcomes.Add(ShootBeam(input, new Point(input[y].Length - 1, y), Point.Left).Count);
+            outcomes.Add(ShootBeam(input, new Point(0, y), Direction.Right).Count);
+            outcomes.Add(ShootBeam(input, new Point(input[y].Length - 1, y), Direction.Left).Count);
         }
         for (var x = 0; x < input[0].Length; x++)
         {
-            outcomes.Add(ShootBeam(input, new Point(x, 0), Point.Down).Count);
-            outcomes.Add(ShootBeam(input, new Point(x, input.Length - 1), Point.Up).Count);
+            outcomes.Add(ShootBeam(input, new Point(x, 0), Direction.Down).Count);
+            outcomes.Add(ShootBeam(input, new Point(x, input.Length - 1), Direction.Up).Count);
         }
 
         return outcomes.Max();
     }
     
-    private Dictionary<Point, List<Point>> ShootBeam(char[][] input, Point point, Point direction) => 
-        ShootBeam(input, point, direction, new Dictionary<Point, List<Point>>());
+    private Dictionary<Point, List<Direction>> ShootBeam(char[][] input, Point point, Direction direction) => 
+        ShootBeam(input, point, direction, new Dictionary<Point, List<Direction>>());
 
-    private static Dictionary<Point, List<Point>> ShootBeam(char[][] input, Point point, Point direction, Dictionary<Point, List<Point>> energized)
+    private static Dictionary<Point, List<Direction>> ShootBeam(char[][] input, Point point, Direction direction, Dictionary<Point, List<Direction>> energized)
     {
         while (point is { X: >= 0, Y: >= 0 } && point.X < input[0].Length && point.Y < input.Length)
         {
             if (!energized.ContainsKey(point))
-                energized.Add(point, new List<Point>());
+                energized.Add(point, new List<Direction>());
             if (energized[point].Contains(direction))
                 return energized;
             
@@ -52,49 +50,49 @@ public class Day16 : Day<char[][]>
             switch (input[point.Y][point.X])
             {
                 case '.':
-                    point += direction;
+                    point += direction.ToPoint();
                     break;
 
-                case '/' when direction == Point.Right:
-                    point += direction = Point.Up;
+                case '/' when direction == Direction.Right:
+                    point += (direction = Direction.Up).ToPoint();
                     break;
-                case '/' when direction == Point.Left:
-                    point += direction = Point.Down;
+                case '/' when direction == Direction.Left:
+                    point += (direction = Direction.Down).ToPoint();
                     break;
-                case '/' when direction == Point.Down:
-                    point += direction = Point.Left;
+                case '/' when direction == Direction.Down:
+                    point += (direction = Direction.Left).ToPoint();
                     break;
-                case '/' when direction == Point.Up:
-                    point += direction = Point.Right;
-                    break;
-
-                case '\\' when direction == Point.Right:
-                    point += direction = Point.Down;
-                    break;
-                case '\\' when direction == Point.Left:
-                    point += direction = Point.Up;
-                    break;
-                case '\\' when direction == Point.Down:
-                    point += direction = Point.Right;
-                    break;
-                case '\\' when direction == Point.Up:
-                    point += direction = Point.Left;
+                case '/' when direction == Direction.Up:
+                    point += (direction = Direction.Right).ToPoint();
                     break;
 
-                case '-' when direction == Point.Right || direction == Point.Left:
-                    point += direction;
+                case '\\' when direction == Direction.Right:
+                    point += (direction = Direction.Down).ToPoint();
                     break;
-                case '|' when direction == Point.Up || direction == Point.Down:
-                    point += direction;
+                case '\\' when direction == Direction.Left:
+                    point += (direction = Direction.Up).ToPoint();
+                    break;
+                case '\\' when direction == Direction.Down:
+                    point += (direction = Direction.Right).ToPoint();
+                    break;
+                case '\\' when direction == Direction.Up:
+                    point += (direction = Direction.Left).ToPoint();
                     break;
 
-                case '-' when direction == Point.Up || direction == Point.Down:
-                    energized = ShootBeam(input, point + Point.Right, Point.Right, energized);
-                    point += direction = Point.Left;
+                case '-' when direction is Direction.Right or Direction.Left:
+                    point += direction.ToPoint();
                     break;
-                case '|' when direction == Point.Left || direction == Point.Right:
-                    energized = ShootBeam(input, point + Point.Down, Point.Down, energized);
-                    point += direction = Point.Up;
+                case '|' when direction is Direction.Up or Direction.Down:
+                    point += direction.ToPoint();
+                    break;
+
+                case '-' when direction is Direction.Up or Direction.Down:
+                    energized = ShootBeam(input, point.Move(Direction.Right), Direction.Right, energized);
+                    point += (direction = Direction.Left).ToPoint();
+                    break;
+                case '|' when direction is Direction.Left or Direction.Right:
+                    energized = ShootBeam(input, point.Move(Direction.Down), Direction.Down, energized);
+                    point += (direction = Direction.Up).ToPoint();
                     break;
             }
         }

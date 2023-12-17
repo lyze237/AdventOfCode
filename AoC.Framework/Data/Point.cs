@@ -1,13 +1,9 @@
+using System.Diagnostics.CodeAnalysis;
+
 namespace AoC.Framework.Data;
 
 public record Point(long X, long Y)
 {
-    public static readonly Point Up = new(0, -1);
-    public static readonly Point Down = new(0, 1);
-    public static readonly Point Left = new(-1, 0);
-    public static readonly Point Right = new(1, 0);
-    public static readonly Point[] Directions = { Up, Down, Left, Right };
-    
     public double Length => Math.Sqrt(Length2);
     public double Length2 => X * X + Y * Y;
     
@@ -26,4 +22,7 @@ public record Point(long X, long Y)
     
     public static Point operator ++(Point a) => a + 1;
     public static Point operator --(Point a) => a - 1;
+
+    public Point Move(Direction direction) => this + direction.ToPoint();
+    public Point Move(Point direction) => this + direction;
 }
