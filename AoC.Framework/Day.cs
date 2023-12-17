@@ -38,7 +38,7 @@ public abstract class Day<T>
         aoc = serviceProvider.GetRequiredService<AoC>();
     }
 
-    protected Day(int year, int day, string part1Example, string part2Example)
+    protected Day(int year, int day, string? part1Example, string? part2Example)
     {
         this.year = year;
         this.day = day;

@@ -7,7 +7,7 @@ namespace AoC._2023;
 [TestFixture]
 public class Day12 : Day<(string map, int[] format)[]>
 {
-    public Day12() : base(2023, 12, false)
+    public Day12() : base(2023, 12)
     {
     }
 
