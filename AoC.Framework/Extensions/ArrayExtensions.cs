@@ -42,4 +42,12 @@ public static class ArrayExtensions
 
         return result;
     }
+
+    public static void Print<T>(this IEnumerable<T[]> array)
+    {
+        foreach (var line in array)
+            Console.WriteLine(string.Join("", line));
+
+        Console.WriteLine();
+    }
 }

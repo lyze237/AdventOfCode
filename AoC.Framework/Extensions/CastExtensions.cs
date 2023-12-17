@@ -2,8 +2,8 @@
 
 public static class CastExtensions
 {
-    public static int ToInt(this char s) =>
-        Convert.ToInt32(s);
+    public static int ToInt(this char c) =>
+        c - '0';
     
     public static int ToInt(this string s) =>
         Convert.ToInt32(s);

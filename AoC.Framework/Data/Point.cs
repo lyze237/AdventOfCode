@@ -25,4 +25,8 @@ public record Point(long X, long Y)
 
     public Point Move(Direction direction) => this + direction.ToPoint();
     public Point Move(Point direction) => this + direction;
+
+    public bool InRectangle<T>(T[][] rectangle) => X >= 0 && Y >= 0 && X < rectangle[0].Length && Y < rectangle.Length;
+
+    public T Get<T>(T[][] arr) => arr[Y][X];
 }
