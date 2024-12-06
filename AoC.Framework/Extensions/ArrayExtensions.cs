@@ -1,4 +1,6 @@
-﻿namespace AoC.Framework.Extensions;
+﻿using AoC.Framework.Data;
+
+namespace AoC.Framework.Extensions;
 
 public static class ArrayExtensions
 {
@@ -50,4 +52,7 @@ public static class ArrayExtensions
 
         Console.WriteLine();
     }
+    
+    public static T Get<T>(this T[][] arr, Point point) => point.Get(arr);
+    public static bool InRectangle<T>(this T[][] arr, Point point) => point.InRectangle(arr);
 }
