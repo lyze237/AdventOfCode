@@ -55,4 +55,5 @@ public static class ArrayExtensions
     
     public static T Get<T>(this T[][] arr, Point point) => point.Get(arr);
     public static bool InRectangle<T>(this T[][] arr, Point point) => point.InRectangle(arr);
+    public static T Set<T>(this T[][] arr, Point point, T value) => point.Set(arr, value);
 }

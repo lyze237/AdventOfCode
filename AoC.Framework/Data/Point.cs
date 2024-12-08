@@ -6,6 +6,7 @@ public record Point(long X, long Y)
     public double Length2 => X * X + Y * Y;
 
     public long ManhattanDistance(Point other) => Math.Abs(other.X - X) + Math.Abs(other.Y - Y);
+    public Point XyDistance(Point other) => new(other.X - X, other.Y - Y);
     public long Dot(Point other) => X * other.X + Y * other.Y;
 
     public static Point operator +(Point a, Point b) => new(a.X + b.X, a.Y + b.Y);
@@ -25,7 +26,8 @@ public record Point(long X, long Y)
     public Point Move(Direction direction, long amount) => this + (direction.ToPoint() * amount);
     public Point Move(Point direction) => this + direction;
 
-    public bool InRectangle<T>(T[][] rectangle) => X >= 0 && Y >= 0 && X < rectangle[0].Length && Y < rectangle.Length;
+    public bool InRectangle<T>(T[][] rectangle) => X >= 0 && Y >= 0 && Y < rectangle.Length && X < rectangle[Y].Length;
 
     public T Get<T>(T[][] arr) => arr[Y][X];
+    public T Set<T>(T[][] arr, T value) => arr[Y][X] = value;
 }
